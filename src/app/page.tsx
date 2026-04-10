@@ -1,11 +1,5 @@
-import { Card } from "@/components/ui/card";
+import { TrackingDashboard } from "@/src/components/common";
 
 export default function Home() {
-  return (
-    <main className='page-shell'>
-      <section className='page-container'>
-        <Card className='surface-card'>test</Card>
-      </section>
-    </main>
-  );
+  return <TrackingDashboard />;
 }

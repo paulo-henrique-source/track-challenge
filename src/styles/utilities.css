@@ -1,18 +1,95 @@
 @layer components {
   .page-shell {
-    @apply min-h-screen px-5 py-8 md:px-10 md:py-12;
+    @apply min-h-screen pb-6 md:pb-8;
   }
 
   .page-container {
-    @apply mx-auto flex w-full max-w-5xl flex-col gap-6;
+    @apply mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-3 pt-3 md:px-4 md:pt-4 lg:px-5;
+  }
+
+  .dashboard-header-inner {
+    @apply mx-auto flex h-14 w-full max-w-[1600px] items-center justify-between gap-3 px-3 md:px-4 lg:px-5;
   }
 
   .surface-card {
-    @apply rounded-xl border border-border bg-[color:var(--surface-card)];
+    @apply rounded-sm border border-border bg-[color:var(--surface-card)];
     box-shadow: var(--shadow-soft);
   }
 
-  .text-subtle {
-    color: var(--text-subtle);
+  .dashboard-shell {
+    background:
+      radial-gradient(
+        circle at 100% 0,
+        rgb(111 66 244 / 10%) 0,
+        rgb(111 66 244 / 0%) 44%
+      ),
+      radial-gradient(
+        circle at 0 0,
+        rgb(255 142 80 / 7%) 0,
+        rgb(255 142 80 / 0%) 34%
+      ),
+      var(--surface-page);
+  }
+
+  .dashboard-topbar {
+    @apply w-full border-y border-border/70 bg-[color:var(--surface-card)];
+    box-shadow: var(--shadow-soft);
+  }
+
+  .dashboard-search {
+    @apply relative flex w-full max-w-sm items-center;
+  }
+
+  .dashboard-search-input {
+    @apply h-9 w-full rounded-sm border border-border bg-[color:var(--surface-soft)] pr-3 !pl-8 text-sm placeholder:text-[color:var(--text-muted)] focus-visible:ring-2 focus-visible:ring-primary/40;
+  }
+
+  .dashboard-kpi-grid {
+    @apply grid gap-4 sm:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .dashboard-kpi-card {
+    @apply rounded-sm border border-border bg-[color:var(--surface-card)] px-4 py-3;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .dashboard-main-grid {
+    @apply grid gap-4 lg:grid-cols-12;
+  }
+
+  .dashboard-panel-title {
+    @apply text-sm font-semibold tracking-tight text-[color:var(--text-strong)];
+  }
+
+  .dashboard-panel-subtitle {
+    @apply text-xs text-[color:var(--text-subtle)];
+  }
+
+  .dashboard-chart-bars {
+    @apply mt-4 grid h-32 grid-cols-6 items-end gap-3;
+  }
+
+  .dashboard-chart-line {
+    @apply mt-3 h-28 w-full rounded-sm border border-border bg-[color:var(--surface-soft)] p-3;
+  }
+
+  .dashboard-ring {
+    @apply mx-auto mt-3 grid size-28 place-items-center rounded-full text-xs font-semibold text-[color:var(--text-strong)];
+  }
+
+  .dashboard-mini-list {
+    @apply mt-3 space-y-2;
+  }
+
+  .dashboard-mini-row {
+    @apply flex items-center justify-between rounded-sm border border-border/70 bg-[color:var(--surface-soft)] px-3 py-2 text-xs text-[color:var(--text-strong)];
+  }
+
+  .dashboard-pre {
+    @apply max-h-44 overflow-auto rounded-sm border border-border bg-[color:var(--surface-soft)] p-3 text-xs leading-relaxed text-[color:var(--text-strong)];
+  }
+
+  .dashboard-filters-grid {
+    @apply grid gap-x-4 gap-y-5 md:grid-cols-2 xl:grid-cols-4;
   }
 }

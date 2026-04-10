@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/tokens.css";
+@import "../styles/utilities.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.7);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.2);
+}
+
+:root {
+  --background: var(--surface-page);
+  --foreground: var(--text-strong);
+  --card: var(--surface-card);
+  --card-foreground: var(--text-strong);
+  --popover: var(--surface-card);
+  --popover-foreground: var(--text-strong);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-contrast);
+  --secondary: var(--surface-elevated);
+  --secondary-foreground: var(--text-strong);
+  --muted: var(--surface-soft);
+  --muted-foreground: var(--text-subtle);
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--text-strong);
+  --destructive: #dc4162;
+  --border: #e8e9f4;
+  --input: #e8e9f4;
+  --ring: var(--brand);
+  --radius: 0.5rem;
+
+  --chart-1: var(--brand);
+  --chart-2: var(--accent-blue);
+  --chart-3: var(--accent-orange);
+  --chart-4: var(--accent-pink);
+  --chart-5: #5dd6b0;
+
+  --sidebar: var(--surface-card);
+  --sidebar-foreground: var(--text-strong);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-contrast);
+  --sidebar-accent: var(--surface-soft);
+  --sidebar-accent-foreground: var(--text-strong);
+  --sidebar-border: #e8e9f4;
+  --sidebar-ring: var(--brand);
+}
+
+.dark {
+  --background: var(--surface-page);
+  --foreground: var(--text-strong);
+  --card: var(--surface-card);
+  --card-foreground: var(--text-strong);
+  --popover: var(--surface-card);
+  --popover-foreground: var(--text-strong);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-contrast);
+  --secondary: var(--surface-elevated);
+  --secondary-foreground: var(--text-strong);
+  --muted: var(--surface-soft);
+  --muted-foreground: var(--text-subtle);
+  --accent: var(--brand-soft);
+  --accent-foreground: var(--text-strong);
+  --destructive: #f07b9b;
+  --border: #2f3752;
+  --input: #2f3752;
+  --ring: var(--brand);
+
+  --sidebar: var(--surface-card);
+  --sidebar-foreground: var(--text-strong);
+  --sidebar-primary: var(--brand);
+  --sidebar-primary-foreground: var(--brand-contrast);
+  --sidebar-accent: var(--surface-soft);
+  --sidebar-accent-foreground: var(--text-strong);
+  --sidebar-border: #2f3752;
+  --sidebar-ring: var(--brand);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-[color:var(--surface-page)] text-foreground antialiased;
+  }
+}

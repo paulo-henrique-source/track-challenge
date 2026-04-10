@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
 import { Providers } from "./providers";
-import "./globals.css";
+import "../styles/globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--app-font-sans",
