@@ -3,17 +3,18 @@
 import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-import {
-  SessionStatus,
-  type SessionRecord,
-  type SilentSessionPayload,
-} from "@/types"
+import { SessionStatus } from "@/types/enums/sessionStatus"
+import type {
+  PackageTypeRecord,
+  SilentSessionPayload,
+  VehicleRecord,
+} from "@/types/session"
 
 type SessionStore = {
   jwtToken: string | null
   tokenExp: number | null
-  vehicles: SessionRecord[]
-  packageTypes: SessionRecord[]
+  vehicles: VehicleRecord[]
+  packageTypes: PackageTypeRecord[]
   status: SessionStatus
   errorMessage: string | null
   hasHydrated: boolean
@@ -26,8 +27,8 @@ type SessionStore = {
 const persistedDefaults = {
   jwtToken: null,
   tokenExp: null,
-  vehicles: [] as SessionRecord[],
-  packageTypes: [] as SessionRecord[],
+  vehicles: [] as VehicleRecord[],
+  packageTypes: [] as PackageTypeRecord[],
 }
 
 export const useSessionStore = create<SessionStore>()(

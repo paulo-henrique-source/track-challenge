@@ -1,14 +1,15 @@
-import { z } from "zod"
+import type { z } from "zod";
 
-export const sessionRecordSchema = z.record(z.string(), z.unknown())
+import type {
+  packageTypeRecordSchema,
+  silentSessionBackendResponseSchema,
+  silentSessionPayloadSchema,
+  vehicleRecordSchema,
+} from "@/schemas/sessionSchema";
 
-export const silentSessionPayloadSchema = z.object({
-  jwtToken: z.string().min(1),
-  tokenExp: z.number(),
-  vehicles: z.array(sessionRecordSchema),
-  packageTypes: z.array(sessionRecordSchema),
-})
-
-export type SessionRecord = z.infer<typeof sessionRecordSchema>
-
-export type SilentSessionPayload = z.infer<typeof silentSessionPayloadSchema>
+export type VehicleRecord = z.infer<typeof vehicleRecordSchema>;
+export type PackageTypeRecord = z.infer<typeof packageTypeRecordSchema>;
+export type SilentSessionBackendResponse = z.infer<
+  typeof silentSessionBackendResponseSchema
+>;
+export type SilentSessionPayload = z.infer<typeof silentSessionPayloadSchema>;

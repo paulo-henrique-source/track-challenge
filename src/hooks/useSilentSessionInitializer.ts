@@ -8,7 +8,7 @@ import {
   silentSessionQueryKey,
 } from "@/services/silentSessionApi";
 import { useSessionStore } from "@/store";
-import { SessionStatus } from "@/types";
+import { SessionStatus } from "@/types/enums/sessionStatus";
 import { isTokenExpired } from "@/utils/jwt";
 
 export function useSilentSessionInitializer() {
