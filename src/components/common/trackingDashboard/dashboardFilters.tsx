@@ -1,17 +1,17 @@
 import { Search, ShieldCheck } from "lucide-react";
 
-import { PackageTypesDropdown } from "@/src/components/common/packageTypesDropdown";
-import { VehicleDropdown } from "@/src/components/common/vehicleDropdown";
+import { PackageTypesDropdown } from "@/components/common/packageTypesDropdown/packageTypesDropdown";
+import { VehicleDropdown } from "@/components/common/vehicleDropdown/vehicleDropdown";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/src/components/ui/accordion";
-import { Button } from "@/src/components/ui/button";
-import { DatePicker } from "@/src/components/ui/datePicker";
-import { Label } from "@/src/components/ui/label";
-import type { PackageTypeRecord, VehicleRecord } from "@/src/types/session";
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/ui/datePicker";
+import { Label } from "@/components/ui/label";
+import type { PackageTypeRecord, VehicleRecord } from "@/types/session";
 
 type DashboardFiltersProps = {
   vehicles: VehicleRecord[];
@@ -113,7 +113,7 @@ export function DashboardFilters({
             <Button
               type="button"
               size="lg"
-              className="h-11 rounded-sm px-6"
+              className="cursor-pointer h-11 rounded-sm px-6"
               disabled={historyPending || isSessionReady === false}
               onClick={onSearch}
             >
@@ -125,7 +125,7 @@ export function DashboardFilters({
               type="button"
               variant="ghost"
               size="lg"
-              className="h-11 rounded-sm px-5"
+              className="cursor-pointer h-11 rounded-sm px-5"
               onClick={onClear}
             >
               Clear filters

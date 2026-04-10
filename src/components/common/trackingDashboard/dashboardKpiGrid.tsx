@@ -1,6 +1,6 @@
 import { Boxes, Car, Route, Users } from "lucide-react";
 
-import { Card, CardContent } from "@/src/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 type DashboardKpiGridProps = {
   vehiclesCount: number;

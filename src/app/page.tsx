@@ -1,4 +1,4 @@
-import { TrackingDashboard } from "@/src/components/common";
+import { TrackingDashboard } from "@/components/common/trackingDashboard/trackingDashboard";
 
 export default function Home() {
   return <TrackingDashboard />;
