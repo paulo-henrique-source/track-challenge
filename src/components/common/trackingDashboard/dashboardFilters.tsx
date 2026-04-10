@@ -1,3 +1,5 @@
+"use client";
+
 import { Search, SlidersHorizontal } from "lucide-react";
 
 import { PackageTypesDropdown } from "@/components/common/packageTypesDropdown/packageTypesDropdown";
@@ -11,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datePicker";
 import { Label } from "@/components/ui/label";
+import { useTranslate } from "@/hooks/useTranslate";
 import type { PackageTypeRecord, VehicleRecord } from "@/types/session";
 
 const FILTERS_TRIGGER_ID = "dashboard-filters-trigger";
@@ -57,6 +60,8 @@ export function DashboardFilters({
   onSearch,
   onClear,
 }: DashboardFiltersProps) {
+  const { t } = useTranslate();
+
   return (
     <Accordion
       defaultValue={["filters"]}
@@ -70,7 +75,7 @@ export function DashboardFilters({
         >
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="size-4 text-primary" />
-            <span className="cursor-text">Search Filters</span>
+            <span className="cursor-text">{t("filters.title")}</span>
           </div>
         </AccordionTrigger>
 
@@ -80,7 +85,9 @@ export function DashboardFilters({
         >
           <div className="dashboard-filters-grid pb-3">
             <div className="xl:col-span-2">
-              <Label className="mb-2 block cursor-text">Vehicle</Label>
+              <Label className="mb-2 block cursor-text">
+                {t("filters.vehicle")}
+              </Label>
               <VehicleDropdown
                 triggerId="dashboard-vehicle-trigger"
                 vehicles={vehicles}
@@ -91,7 +98,9 @@ export function DashboardFilters({
             </div>
 
             <div className="xl:col-span-2">
-              <Label className="mb-2 block cursor-text">Package types</Label>
+              <Label className="mb-2 block cursor-text">
+                {t("filters.packageTypes")}
+              </Label>
               <PackageTypesDropdown
                 triggerId="dashboard-package-types-trigger"
                 packageTypes={packageTypes}
@@ -102,24 +111,28 @@ export function DashboardFilters({
             </div>
 
             <div>
-              <Label className="mb-2 block cursor-text">Start date</Label>
+              <Label className="mb-2 block cursor-text">
+                {t("filters.startDate")}
+              </Label>
               <DatePicker
                 triggerId="dashboard-start-date-trigger"
                 value={startDate}
                 onChange={onStartDateChange}
-                placeholder="Select start date"
+                placeholder={t("filters.startDatePlaceholder")}
                 minDate={minStartDate}
                 maxDate={maxStartDate}
               />
             </div>
 
             <div>
-              <Label className="mb-2 block cursor-text">End date</Label>
+              <Label className="mb-2 block cursor-text">
+                {t("filters.endDate")}
+              </Label>
               <DatePicker
                 triggerId="dashboard-end-date-trigger"
                 value={endDate}
                 onChange={onEndDateChange}
-                placeholder="Select end date"
+                placeholder={t("filters.endDatePlaceholder")}
                 minDate={minEndDate}
                 maxDate={maxEndDate}
               />
@@ -135,7 +148,7 @@ export function DashboardFilters({
               onClick={onSearch}
             >
               <Search className="size-4" />
-              {historyPending ? "Searching..." : "Search"}
+              {historyPending ? t("filters.searching") : t("filters.search")}
             </Button>
 
             <Button
@@ -145,7 +158,7 @@ export function DashboardFilters({
               className="cursor-pointer h-11 rounded-sm px-5"
               onClick={onClear}
             >
-              Clear filters
+              {t("filters.clear")}
             </Button>
           </div>
         </AccordionContent>

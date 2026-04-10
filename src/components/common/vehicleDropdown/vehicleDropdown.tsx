@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { useTranslate } from "@/hooks/useTranslate";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { VehicleRecord } from "@/types/session";
 import { cn } from "@/utils/tailwind";
@@ -23,13 +24,14 @@ export function VehicleDropdown({
   disabled = false,
   triggerId,
 }: VehicleDropdownProps) {
+  const { t } = useTranslate();
   const [open, setOpen] = useState(false);
 
   const selectedVehicleLabel = useMemo(() => {
     const selectedVehicle = vehicles.find((vehicle) => vehicle.veiccodigo === value);
 
-    return selectedVehicle?.veicnome ?? "Select a vehicle";
-  }, [value, vehicles]);
+    return selectedVehicle?.veicnome ?? t("dropdowns.vehicle.placeholder");
+  }, [t, value, vehicles]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -47,7 +49,7 @@ export function VehicleDropdown({
       <PopoverContent className='max-h-72 w-(--anchor-width) gap-1 overflow-y-auto bg-popover p-1'>
         {vehicles.length === 0 ? (
           <p className='px-2 py-1 text-sm text-muted-foreground'>
-            No vehicles available
+            {t("dropdowns.vehicle.empty")}
           </p>
         ) : (
           vehicles.map((vehicle) => {

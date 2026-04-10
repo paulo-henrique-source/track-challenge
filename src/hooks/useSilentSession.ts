@@ -77,7 +77,7 @@ export function useSilentSession() {
         SessionStatus.Error,
         silentSessionQuery.error instanceof Error
           ? silentSessionQuery.error.message
-          : "Falha no login silencioso",
+          : "errors.session.silentLoginFailed",
       );
     }
   }, [

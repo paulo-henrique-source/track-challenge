@@ -1,6 +1,9 @@
+"use client";
+
 import { Boxes, Car, Route, Users } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslate } from "@/hooks/useTranslate";
 
 type DashboardKpiGridProps = {
   vehiclesCount: number;
@@ -9,8 +12,8 @@ type DashboardKpiGridProps = {
   onlineVehiclesCount: number;
 };
 
-function formatNumber(value: number) {
-  return Intl.NumberFormat("en-US").format(value);
+function formatNumber(value: number, locale: string) {
+  return Intl.NumberFormat(locale).format(value);
 }
 
 export function DashboardKpiGrid({
@@ -19,6 +22,8 @@ export function DashboardKpiGrid({
   historyRecordsCount,
   onlineVehiclesCount,
 }: DashboardKpiGridProps) {
+  const { t, language } = useTranslate();
+
   return (
     <div className='dashboard-kpi-grid animate-in fade-in-0 slide-in-from-bottom-1 duration-500'>
       <Card className='dashboard-kpi-card transition-all duration-300 hover:-translate-y-0.5'>
@@ -29,9 +34,11 @@ export function DashboardKpiGrid({
             </span>
             <div>
               <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
-                {formatNumber(vehiclesCount)}
+                {formatNumber(vehiclesCount, language)}
               </p>
-              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Vehicles loaded</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>
+                {t("kpi.vehiclesLoaded")}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -45,9 +52,11 @@ export function DashboardKpiGrid({
             </span>
             <div>
               <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
-                {formatNumber(packageTypesCount)}
+                {formatNumber(packageTypesCount, language)}
               </p>
-              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Package types</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>
+                {t("kpi.packageTypes")}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -61,9 +70,11 @@ export function DashboardKpiGrid({
             </span>
             <div>
               <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
-                {formatNumber(historyRecordsCount)}
+                {formatNumber(historyRecordsCount, language)}
               </p>
-              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Latest records</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>
+                {t("kpi.latestRecords")}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -77,9 +88,11 @@ export function DashboardKpiGrid({
             </span>
             <div>
               <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
-                {formatNumber(onlineVehiclesCount)}
+                {formatNumber(onlineVehiclesCount, language)}
               </p>
-              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Vehicles online</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>
+                {t("kpi.vehiclesOnline")}
+              </p>
             </div>
           </div>
         </CardContent>

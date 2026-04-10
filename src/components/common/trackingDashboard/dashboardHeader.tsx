@@ -1,15 +1,22 @@
 "use client";
 
-import { Moon, Search, Sun } from "lucide-react";
+import { Languages, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useTranslate } from "@/hooks/useTranslate";
+import type { AppLanguage } from "@/i18n/config";
 import { getPreferredDarkMode, setPreferredDarkMode } from "@/utils/theme";
+
+const LANGUAGE_LABEL_KEYS: Record<AppLanguage, string> = {
+  "pt-BR": "header.language.options.ptBR",
+  "en-US": "header.language.options.enUS",
+};
 
 export function DashboardHeader() {
   const [isDark, setIsDark] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const { t, language, setLanguage, supportedLanguages } = useTranslate();
 
   const handleToggleTheme = () => {
     setIsDark((current) => !current);
@@ -39,13 +46,27 @@ export function DashboardHeader() {
   return (
     <header className='dashboard-topbar animate-in fade-in-0 slide-in-from-top-1 duration-500'>
       <div className='dashboard-header-inner'>
-        <div className='dashboard-search'>
-          <Search className='pointer-events-none absolute top-1/2 left-3 z-10 size-4 -translate-y-1/2 text-[color:var(--text-muted)]' />
-          <Input
-            id='dashboard-search-input'
-            className='dashboard-search-input cursor-text'
-            placeholder='Search...'
-          />
+        <div className='flex items-center gap-2'>
+          <span className='cursor-text text-sm font-medium text-[color:var(--text-subtle)]'>
+            {t("header.language.label")}
+          </span>
+          <div className='relative'>
+            <Languages className='pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-[color:var(--text-muted)]' />
+            <select
+              aria-label={t("header.language.triggerAria")}
+              value={language}
+              onChange={(event) => {
+                setLanguage(event.target.value as AppLanguage);
+              }}
+              className='h-9 cursor-pointer rounded-sm border border-border bg-background pr-8 pl-8 text-sm text-[color:var(--text-strong)] outline-none transition hover:bg-muted focus-visible:border-ring dark:border-input dark:bg-input/30 dark:hover:bg-input/50'
+            >
+              {supportedLanguages.map((supportedLanguage) => (
+                <option key={supportedLanguage} value={supportedLanguage}>
+                  {t(LANGUAGE_LABEL_KEYS[supportedLanguage])}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className='flex items-center gap-2'>
@@ -55,7 +76,7 @@ export function DashboardHeader() {
             size='icon'
             className='size-9 rounded-sm border border-border cursor-pointer'
             onClick={handleToggleTheme}
-            aria-label='Toggle dark mode'>
+            aria-label={t("header.themeToggle")}>
             {hasMounted && isDark ? (
               <Sun className='size-4' />
             ) : (
@@ -65,10 +86,10 @@ export function DashboardHeader() {
 
           <div className='text-right'>
             <p className='cursor-text text-xs font-semibold text-[color:var(--text-strong)]'>
-              Fleet User
+              {t("common.fleetUser")}
             </p>
             <p className='cursor-text text-[11px] text-[color:var(--text-subtle)]'>
-              Life Web
+              {t("common.appName")}
             </p>
           </div>
         </div>

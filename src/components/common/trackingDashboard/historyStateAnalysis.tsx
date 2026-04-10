@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslate } from "@/hooks/useTranslate";
 import { HistoryRecordState } from "@/types/enums";
 import type { HistoryRecord } from "@/types/history";
 
@@ -87,6 +88,8 @@ export function HistoryStateAnalysis({
   records,
   isLoading = false,
 }: HistoryStateAnalysisProps) {
+  const { t } = useTranslate();
+
   const stats = useMemo(() => {
     return getStateStats(records);
   }, [records]);
@@ -104,9 +107,11 @@ export function HistoryStateAnalysis({
   return (
     <Card className='surface-card animate-in fade-in-0 slide-in-from-bottom-2 h-full duration-500'>
       <CardHeader className='pb-3'>
-        <CardTitle className='cursor-text text-base'>State Analysis</CardTitle>
+        <CardTitle className='cursor-text text-base'>
+          {t("stateAnalysis.title")}
+        </CardTitle>
         <CardDescription className='cursor-text'>
-          Percentage distribution for the state field (Open vs Closed).
+          {t("stateAnalysis.description")}
         </CardDescription>
       </CardHeader>
 
@@ -124,7 +129,7 @@ export function HistoryStateAnalysis({
 
         {!isLoading && stats.total === 0 ? (
           <p className='cursor-text text-sm text-[color:var(--text-subtle)]'>
-            No state data available.
+            {t("stateAnalysis.noData")}
           </p>
         ) : null}
 
@@ -136,7 +141,7 @@ export function HistoryStateAnalysis({
               <div className='grid size-full place-items-center rounded-full bg-[color:var(--surface-card)]'>
                 <div className='text-center'>
                   <p className='cursor-text text-[11px] text-[color:var(--text-subtle)]'>
-                    Records
+                    {t("stateAnalysis.records")}
                   </p>
                   <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
                     {stats.total}
@@ -149,7 +154,7 @@ export function HistoryStateAnalysis({
               <div className='flex items-center justify-between gap-2'>
                 <div className='inline-flex items-center gap-2'>
                   <span className='size-2.5 rounded-full bg-[color:var(--accent-blue)]' />
-                  <span className='cursor-text'>Open</span>
+                  <span className='cursor-text'>{t("stateAnalysis.open")}</span>
                 </div>
                 <span className='cursor-text font-medium'>
                   {openPercent}% ({stats.open})
@@ -159,7 +164,9 @@ export function HistoryStateAnalysis({
               <div className='flex items-center justify-between gap-2'>
                 <div className='inline-flex items-center gap-2'>
                   <span className='size-2.5 rounded-full bg-[color:var(--accent-pink)]' />
-                  <span className='cursor-text'>Closed</span>
+                  <span className='cursor-text'>
+                    {t("stateAnalysis.closed")}
+                  </span>
                 </div>
                 <span className='cursor-text font-medium'>
                   {closedPercent}% ({stats.closed})
@@ -169,7 +176,9 @@ export function HistoryStateAnalysis({
               <div className='flex items-center justify-between gap-2'>
                 <div className='inline-flex items-center gap-2'>
                   <span className='size-2.5 rounded-full bg-[color:var(--text-subtle)]/40' />
-                  <span className='cursor-text'>Others/Unknown</span>
+                  <span className='cursor-text'>
+                    {t("stateAnalysis.others")}
+                  </span>
                 </div>
                 <span className='cursor-text font-medium'>
                   {othersPercent}% ({stats.others})

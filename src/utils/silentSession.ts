@@ -8,14 +8,14 @@ export function parseBackendResponse(response: unknown): SilentSessionResponse {
   const parsedResponse = silentSessionBackendResponseSchema.safeParse(response);
 
   if (!parsedResponse.success) {
-    throw new Error("Invalid silent session backend response");
+    throw new Error("errors.session.invalidSilentBackendResponse");
   }
 
   const { token, veiculos, tipospacote } = parsedResponse.data;
   const tokenExp = getJwtExpiration(token);
 
   if (!tokenExp) {
-    throw new Error("JWT token missing valid exp claim");
+    throw new Error("errors.session.missingJwtExp");
   }
 
   return {
@@ -28,7 +28,7 @@ export function parseBackendResponse(response: unknown): SilentSessionResponse {
 
 export function getAxiosResponseError(
   error: unknown,
-  fallbackMessage = "Request failed",
+  fallbackMessage = "errors.generic.requestFailed",
 ) {
   if (!axios.isAxiosError(error)) {
     return null;
@@ -43,7 +43,7 @@ export function getAxiosResponseError(
     "message" in response &&
     typeof response.message === "string"
       ? response.message
-      : `${fallbackMessage} (${status})`;
+      : fallbackMessage;
 
   return { status, message };
 }

@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "Track Challenge",
+    "description": "Base inicial para o desafio de rastreamento de veículos."
+  },
+  "common": {
+    "appName": "Life Web",
+    "fleetUser": "Usuário da Frota",
+    "notInformed": "Não informado"
+  },
+  "header": {
+    "themeToggle": "Alternar tema escuro",
+    "language": {
+      "label": "Idioma",
+      "triggerAria": "Selecionar idioma",
+      "options": {
+        "ptBR": "Português (Brasil)",
+        "enUS": "English (US)"
+      }
+    }
+  },
+  "filters": {
+    "title": "Filtros de Busca",
+    "vehicle": "Veículo",
+    "packageTypes": "Tipos de pacote",
+    "startDate": "Data inicial",
+    "endDate": "Data final",
+    "startDatePlaceholder": "Selecione data inicial",
+    "endDatePlaceholder": "Selecione data final",
+    "search": "Consultar",
+    "searching": "Consultando...",
+    "clear": "Limpar filtros"
+  },
+  "dropdowns": {
+    "vehicle": {
+      "placeholder": "Selecione um veículo",
+      "empty": "Nenhum veículo disponível"
+    },
+    "packageTypes": {
+      "all": "Todos os tipos de pacote",
+      "selected": "{{count}} selecionados",
+      "empty": "Nenhum tipo de pacote disponível"
+    }
+  },
+  "datePicker": {
+    "placeholder": "Selecione uma data",
+    "time": "Hora"
+  },
+  "kpi": {
+    "vehiclesLoaded": "Veículos carregados",
+    "packageTypes": "Tipos de pacote",
+    "latestRecords": "Registros mais recentes",
+    "vehiclesOnline": "Veículos online"
+  },
+  "map": {
+    "title": "Rota do Veículo",
+    "subtitle": "Polyline com marcadores de início (A) e fim (B)",
+    "points": "{{count}} pontos",
+    "empty": "Execute uma consulta para plotar o histórico da rota no mapa.",
+    "popup": {
+      "start": "Início (A)",
+      "end": "Fim (B)",
+      "dateTime": "Data/Hora",
+      "driver": "Condutor"
+    }
+  },
+  "table": {
+    "title": "Dados Brutos (Ordenável)",
+    "description": "{{count}} registros encontrados. Renderização paginada para manter a interface responsiva.",
+    "searchPlaceholder": "Buscar registros...",
+    "rowsPerPage": "Linhas por página",
+    "columns": "Colunas",
+    "toggleColumns": "Alternar colunas",
+    "noRecords": "Nenhum registro para exibir.",
+    "paginationSummary": "{{count}} registros filtrados • Página {{current}} de {{total}}",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "column": {
+      "dateTime": "Data/Hora",
+      "state": "Estado",
+      "driver": "Condutor",
+      "speed": "Velocidade",
+      "type": "Tipo",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    }
+  },
+  "stateAnalysis": {
+    "title": "Análise de Estado",
+    "description": "Distribuição percentual do campo estado (Aberto vs Fechado).",
+    "noData": "Nenhum dado de estado disponível.",
+    "records": "Registros",
+    "open": "Aberto",
+    "closed": "Fechado",
+    "others": "Outros/Desconhecido"
+  },
+  "errors": {
+    "generic": {
+      "requestFailed": "Falha na requisição"
+    },
+    "session": {
+      "silentLoginFailed": "Falha no login silencioso",
+      "unexpectedSilentLogin": "Erro inesperado no login silencioso",
+      "tokenUnavailable": "Token de sessão indisponível. Aguarde o login silencioso.",
+      "failedToLoadPersisted": "Falha ao carregar sessão persistida",
+      "invalidSilentSessionResponse": "Resposta inválida do endpoint de sessão silenciosa",
+      "invalidSilentBackendResponse": "Resposta inválida do backend de sessão silenciosa",
+      "missingJwtExp": "Token JWT sem claim exp válida",
+      "credentialsEnvMissing": "SILENT_SESSION_USER e SILENT_SESSION_PASSWORD devem estar configurados",
+      "userEnvMissing": "SILENT_SESSION_USER deve estar configurado"
+    },
+    "history": {
+      "requestFailed": "Falha na consulta de histórico",
+      "unexpectedHistoryRequest": "Erro inesperado na consulta de histórico",
+      "invalidHistoryResponse": "Payload de resposta de histórico inválido",
+      "invalidJsonPayload": "Payload JSON inválido",
+      "invalidHistoryRequestPayload": "Payload de requisição de histórico inválido",
+      "vehicleRequired": "Seleção de veículo é obrigatória.",
+      "startEndRequired": "Data inicial e final são obrigatórias.",
+      "endDateMaxFuture": "A data final não pode ser maior que 45 dias a partir de hoje.",
+      "startBeforeEnd": "A data inicial deve ser anterior à data final.",
+      "rangeMax48h": "O intervalo máximo permitido entre início e fim é de 48 horas."
+    }
+  }
+}

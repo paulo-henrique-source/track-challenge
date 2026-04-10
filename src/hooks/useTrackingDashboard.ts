@@ -20,6 +20,7 @@ import {
   USE_HISTORY_REQUEST_MOCK,
 } from "@/consts";
 import { useSessionState } from "@/hooks/useSessionState";
+import { useTranslate } from "@/hooks/useTranslate";
 import { requestHistory } from "@/services/historyApi";
 import { SessionStatus } from "@/types/enums";
 import type { HistoryRequest } from "@/types/history";
@@ -35,6 +36,7 @@ function showValidationError(message: string, toastId?: string) {
 }
 
 export function useTrackingDashboard() {
+  const { t, hasTranslation } = useTranslate();
   const { jwtToken, vehicles, packageTypes, status } = useSessionState();
 
   const [vehicleCode, setVehicleCode] = useState("");
@@ -92,10 +94,17 @@ export function useTrackingDashboard() {
   const historyMutation = useMutation({
     mutationFn: requestHistory,
     onError: (error) => {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Unexpected history request error";
+      const message = (() => {
+        if (!(error instanceof Error)) {
+          return t("errors.history.unexpectedHistoryRequest");
+        }
+
+        if (hasTranslation(error.message)) {
+          return t(error.message);
+        }
+
+        return error.message;
+      })();
 
       showValidationError(message, `history-error-${message}`);
     },
@@ -106,7 +115,7 @@ export function useTrackingDashboard() {
 
   const submitHistory = () => {
     if (!jwtToken) {
-      showValidationError("Session token unavailable. Wait for silent login.");
+      showValidationError(t("errors.session.tokenUnavailable"));
       return;
     }
 
@@ -119,31 +128,29 @@ export function useTrackingDashboard() {
     }
 
     if (!vehicleCode) {
-      showValidationError("Vehicle selection is required.");
+      showValidationError(t("errors.history.vehicleRequired"));
       return;
     }
 
     if (!startDate || !endDate) {
-      showValidationError("Start and end dates are required.");
+      showValidationError(t("errors.history.startEndRequired"));
       return;
     }
 
     if (endDate > maxEndDateFromFuture) {
-      showValidationError("End date cannot be more than 45 days from today.");
+      showValidationError(t("errors.history.endDateMaxFuture"));
       return;
     }
 
     if (startDate > endDate) {
-      showValidationError("Start date must be before end date.");
+      showValidationError(t("errors.history.startBeforeEnd"));
       return;
     }
 
     const rangeInMilliseconds = differenceInMilliseconds(endDate, startDate);
 
     if (rangeInMilliseconds > MAX_RANGE_MILLISECONDS) {
-      showValidationError(
-        "Maximum allowed range between start and end is 48 hours.",
-      );
+      showValidationError(t("errors.history.rangeMax48h"));
       return;
     }
 

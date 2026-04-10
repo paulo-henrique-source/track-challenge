@@ -8,11 +8,13 @@ import {
   requestSilentSession,
   silentSessionQueryKey,
 } from "@/services/silentSessionApi";
+import { useTranslate } from "@/hooks/useTranslate";
 import { useSessionStore } from "@/store/sessionStore";
 import { SessionStatus } from "@/types/enums";
 import { isTokenExpired } from "@/utils/jwt";
 
 export function useSilentSessionInitializer() {
+  const { t, hasTranslation } = useTranslate();
   const hasHydrated = useSessionStore((state) => state.hasHydrated);
   const jwtToken = useSessionStore((state) => state.jwtToken);
   const tokenExp = useSessionStore((state) => state.tokenExp);
@@ -66,7 +68,7 @@ export function useSilentSessionInitializer() {
         SessionStatus.Error,
         silentSessionQuery.error instanceof Error
           ? silentSessionQuery.error.message
-          : "Silent login failed",
+          : "errors.session.silentLoginFailed",
       );
     }
   }, [
@@ -112,8 +114,12 @@ export function useSilentSessionInitializer() {
       return;
     }
 
-    toast.error(errorMessage, {
-      toastId: `session-error-${errorMessage}`,
+    const message = hasTranslation(errorMessage)
+      ? t(errorMessage)
+      : errorMessage;
+
+    toast.error(message, {
+      toastId: `session-error-${message}`,
     });
-  }, [errorMessage, status]);
+  }, [errorMessage, hasTranslation, status, t]);
 }

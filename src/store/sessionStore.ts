@@ -70,7 +70,7 @@ export const useSessionStore = create<SessionStore>()(
         if (error) {
           state?.setStatus(
             SessionStatus.Error,
-            "Failed to load persisted session",
+            "errors.session.failedToLoadPersisted",
           );
         }
 

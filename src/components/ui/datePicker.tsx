@@ -2,11 +2,14 @@
 
 import * as React from "react";
 import { endOfDay, format, startOfDay } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { enUS, ptBR } from "date-fns/locale";
+import type { Locale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { useTranslate } from "@/hooks/useTranslate";
+import type { AppLanguage } from "@/i18n/config";
 import {
   Popover,
   PopoverContent,
@@ -22,6 +25,11 @@ type DatePickerProps = {
   maxDate?: Date;
   showTime?: boolean;
   triggerId?: string;
+};
+
+const DATE_LOCALES: Record<AppLanguage, Locale> = {
+  "pt-BR": ptBR,
+  "en-US": enUS,
 };
 
 function clampDate(date: Date, minDate?: Date, maxDate?: Date) {
@@ -45,14 +53,17 @@ function toTimeValue(date: Date) {
 export function DatePicker({
   value,
   onChange,
-  placeholder = "Select date",
+  placeholder,
   minDate,
   maxDate,
   showTime = false,
   triggerId,
 }: DatePickerProps) {
+  const { t, language } = useTranslate();
   const [internalDate, setInternalDate] = React.useState<Date>();
   const selectedDate = value ?? internalDate;
+  const locale = DATE_LOCALES[language];
+  const resolvedPlaceholder = placeholder ?? t("datePicker.placeholder");
 
   const normalizedMinDate = minDate ? startOfDay(minDate) : undefined;
   const normalizedMaxDate = maxDate ? endOfDay(maxDate) : undefined;
@@ -128,8 +139,8 @@ export function DatePicker({
   };
 
   const triggerLabel = selectedDate
-    ? format(selectedDate, showTime ? "PPP p" : "PPP", { locale: ptBR })
-    : placeholder;
+    ? format(selectedDate, showTime ? "PPP p" : "PPP", { locale })
+    : resolvedPlaceholder;
 
   const timeValue = selectedDate ? toTimeValue(selectedDate) : "00:00";
 
@@ -152,14 +163,14 @@ export function DatePicker({
           mode="single"
           selected={selectedDate}
           onSelect={handleDateChange}
-          locale={ptBR}
+          locale={locale}
           disabled={disabledMatcher}
         />
 
         {showTime ? (
           <div className="border-t border-border p-3">
             <label className="mb-1 block text-xs font-medium text-muted-foreground">
-              Time
+              {t("datePicker.time")}
             </label>
             <input
               type="time"

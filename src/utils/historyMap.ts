@@ -51,6 +51,7 @@ export function projectCoordinates(
 
 export function getMappablePoints(
   records: HistoryRecord[],
+  fallbackDriverLabel: string,
 ): MappableHistoryPoint[] {
   return records
     .map((record) => {
@@ -67,7 +68,7 @@ export function getMappablePoints(
 
       return {
         timestamp: record.data,
-        driver: record.motorista ?? "Not informed",
+        driver: record.motorista ?? fallbackDriverLabel,
         latitude,
         longitude,
       };

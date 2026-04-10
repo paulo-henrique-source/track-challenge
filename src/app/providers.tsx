@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import "@/i18n/i18next";
 import { useSilentSessionInitializer } from "@/hooks/useSilentSessionInitializer";
 import { useSessionStore } from "@/store/sessionStore";
 

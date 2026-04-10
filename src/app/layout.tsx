@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
+import { DEFAULT_LANGUAGE } from "@/i18n/config";
+import { translateFromDictionary } from "@/i18n/dictionaries";
+
 import { Providers } from "./providers";
 import "../styles/globals.css";
 
@@ -15,8 +18,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Track Challenge",
-  description: "Base inicial para o desafio de rastreamento de veiculos.",
+  title: translateFromDictionary(DEFAULT_LANGUAGE, "meta.title"),
+  description: translateFromDictionary(DEFAULT_LANGUAGE, "meta.description"),
 };
 
 export default function RootLayout({
@@ -25,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='pt-BR' suppressHydrationWarning>
+    <html lang={DEFAULT_LANGUAGE} suppressHydrationWarning>
       <body
         className={`${plusJakartaSans.variable} ${jetBrainsMono.variable} font-sans antialiased`}>
         <Providers>{children}</Providers>

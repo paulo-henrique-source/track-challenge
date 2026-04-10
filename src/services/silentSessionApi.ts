@@ -14,12 +14,12 @@ export async function requestSilentSession(): Promise<SilentSessionResponse> {
     const parsedResponse = silentSessionResponseSchema.safeParse(data);
 
     if (!parsedResponse.success) {
-      throw new Error("Invalid silent session endpoint response");
+      throw new Error("errors.session.invalidSilentSessionResponse");
     }
 
     return parsedResponse.data;
   } catch (error) {
-    const message = getAxiosErrorMessage(error, "Silent login failed");
+    const message = getAxiosErrorMessage(error, "errors.session.silentLoginFailed");
 
     if (message) {
       throw new Error(message);
@@ -27,6 +27,6 @@ export async function requestSilentSession(): Promise<SilentSessionResponse> {
 
     throw error instanceof Error
       ? error
-      : new Error("Unexpected silent login error");
+      : new Error("errors.session.unexpectedSilentLogin");
   }
 }

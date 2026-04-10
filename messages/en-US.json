@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "Track Challenge",
+    "description": "Initial base for the vehicle tracking challenge."
+  },
+  "common": {
+    "appName": "Life Web",
+    "fleetUser": "Fleet User",
+    "notInformed": "Not informed"
+  },
+  "header": {
+    "themeToggle": "Toggle dark mode",
+    "language": {
+      "label": "Language",
+      "triggerAria": "Select language",
+      "options": {
+        "ptBR": "Português (Brasil)",
+        "enUS": "English (US)"
+      }
+    }
+  },
+  "filters": {
+    "title": "Search Filters",
+    "vehicle": "Vehicle",
+    "packageTypes": "Package types",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "startDatePlaceholder": "Select start date",
+    "endDatePlaceholder": "Select end date",
+    "search": "Search",
+    "searching": "Searching...",
+    "clear": "Clear filters"
+  },
+  "dropdowns": {
+    "vehicle": {
+      "placeholder": "Select a vehicle",
+      "empty": "No vehicles available"
+    },
+    "packageTypes": {
+      "all": "All package types",
+      "selected": "{{count}} selected",
+      "empty": "No package types available"
+    }
+  },
+  "datePicker": {
+    "placeholder": "Select date",
+    "time": "Time"
+  },
+  "kpi": {
+    "vehiclesLoaded": "Vehicles loaded",
+    "packageTypes": "Package types",
+    "latestRecords": "Latest records",
+    "vehiclesOnline": "Vehicles online"
+  },
+  "map": {
+    "title": "Vehicle Route",
+    "subtitle": "Polyline with custom start (A) and end (B) markers",
+    "points": "{{count}} points",
+    "empty": "Run a search to plot route history on the map.",
+    "popup": {
+      "start": "Start (A)",
+      "end": "End (B)",
+      "dateTime": "Date/Time",
+      "driver": "Driver"
+    }
+  },
+  "table": {
+    "title": "Raw Data (Sortable)",
+    "description": "{{count}} records found. Paginated rendering to keep the UI responsive.",
+    "searchPlaceholder": "Search records...",
+    "rowsPerPage": "Rows per page",
+    "columns": "Columns",
+    "toggleColumns": "Toggle columns",
+    "noRecords": "No records to display.",
+    "paginationSummary": "{{count}} filtered records • Page {{current}} of {{total}}",
+    "previous": "Previous",
+    "next": "Next",
+    "column": {
+      "dateTime": "Date/Time",
+      "state": "State",
+      "driver": "Driver",
+      "speed": "Speed",
+      "type": "Type",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    }
+  },
+  "stateAnalysis": {
+    "title": "State Analysis",
+    "description": "Percentage distribution for the state field (Open vs Closed).",
+    "noData": "No state data available.",
+    "records": "Records",
+    "open": "Open",
+    "closed": "Closed",
+    "others": "Others/Unknown"
+  },
+  "errors": {
+    "generic": {
+      "requestFailed": "Request failed"
+    },
+    "session": {
+      "silentLoginFailed": "Silent login failed",
+      "unexpectedSilentLogin": "Unexpected silent login error",
+      "tokenUnavailable": "Session token unavailable. Wait for silent login.",
+      "failedToLoadPersisted": "Failed to load persisted session",
+      "invalidSilentSessionResponse": "Invalid silent session endpoint response",
+      "invalidSilentBackendResponse": "Invalid silent session backend response",
+      "missingJwtExp": "JWT token missing valid exp claim",
+      "credentialsEnvMissing": "SILENT_SESSION_USER and SILENT_SESSION_PASSWORD must be configured",
+      "userEnvMissing": "SILENT_SESSION_USER must be configured"
+    },
+    "history": {
+      "requestFailed": "History request failed",
+      "unexpectedHistoryRequest": "Unexpected history request error",
+      "invalidHistoryResponse": "Invalid history response payload",
+      "invalidJsonPayload": "Invalid JSON payload",
+      "invalidHistoryRequestPayload": "Invalid history request payload",
+      "vehicleRequired": "Vehicle selection is required.",
+      "startEndRequired": "Start and end dates are required.",
+      "endDateMaxFuture": "End date cannot be more than 45 days from today.",
+      "startBeforeEnd": "Start date must be before end date.",
+      "rangeMax48h": "Maximum allowed range between start and end is 48 hours."
+    }
+  }
+}

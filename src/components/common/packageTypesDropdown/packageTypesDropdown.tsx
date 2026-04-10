@@ -3,6 +3,7 @@
 import { Check, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { useTranslate } from "@/hooks/useTranslate";
 import {
   Popover,
   PopoverContent,
@@ -26,11 +27,12 @@ export function PackageTypesDropdown({
   disabled = false,
   triggerId,
 }: PackageTypesDropdownProps) {
+  const { t } = useTranslate();
   const [open, setOpen] = useState(false);
 
   const label = useMemo(() => {
     if (values.length === 0) {
-      return "All package types";
+      return t("dropdowns.packageTypes.all");
     }
 
     const selectedLabels = packageTypes
@@ -41,8 +43,10 @@ export function PackageTypesDropdown({
       return selectedLabels.join(", ");
     }
 
-    return `${selectedLabels.length} selected`;
-  }, [packageTypes, values]);
+    return t("dropdowns.packageTypes.selected", {
+      count: selectedLabels.length,
+    });
+  }, [packageTypes, t, values]);
 
   const toggleValue = (code: string) => {
     if (values.includes(code)) {
@@ -69,7 +73,7 @@ export function PackageTypesDropdown({
       <PopoverContent className='max-h-72 w-(--anchor-width) gap-1 overflow-y-auto bg-popover p-1'>
         {packageTypes.length === 0 ? (
           <p className='px-2 py-1 text-sm text-muted-foreground'>
-            No package types available
+            {t("dropdowns.packageTypes.empty")}
           </p>
         ) : (
           packageTypes.map((packageType) => {

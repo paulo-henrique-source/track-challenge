@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function getAxiosErrorMessage(
   error: unknown,
-  fallbackMessage = "Request failed",
+  fallbackMessage = "errors.generic.requestFailed",
 ) {
   if (!axios.isAxiosError(error)) {
     return null;
@@ -19,7 +19,5 @@ export function getAxiosErrorMessage(
     return response.message;
   }
 
-  const status = error.response?.status;
-
-  return status ? `${fallbackMessage} (${status})` : fallbackMessage;
+  return fallbackMessage;
 }

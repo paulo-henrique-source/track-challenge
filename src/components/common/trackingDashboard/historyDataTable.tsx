@@ -40,6 +40,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useTranslate } from "@/hooks/useTranslate";
 import type { HistoryRecord } from "@/types/history";
 
 type HistoryDataTableProps = {
@@ -59,14 +60,14 @@ type HistoryTableRow = {
 
 const PAGE_SIZE = 15;
 const COLUMN_SELECTOR_TRIGGER_ID = "history-table-columns-trigger";
-const COLUMN_LABELS: Record<keyof HistoryTableRow, string> = {
-  data: "Date/Time",
-  estado: "State",
-  motorista: "Driver",
-  velocidade: "Speed",
-  tipo: "Type",
-  latitude: "Latitude",
-  longitude: "Longitude",
+const COLUMN_LABEL_KEYS: Record<keyof HistoryTableRow, string> = {
+  data: "table.column.dateTime",
+  estado: "table.column.state",
+  motorista: "table.column.driver",
+  velocidade: "table.column.speed",
+  tipo: "table.column.type",
+  latitude: "table.column.latitude",
+  longitude: "table.column.longitude",
 };
 
 function normalizeTableValue(value: string | undefined) {
@@ -89,18 +90,11 @@ function getSortIcon(sortDirection: false | "asc" | "desc") {
   return <ArrowDown className='size-3.5' />;
 }
 
-function getColumnLabel(columnId: string) {
-  if (columnId in COLUMN_LABELS) {
-    return COLUMN_LABELS[columnId as keyof HistoryTableRow];
-  }
-
-  return columnId;
-}
-
 export function HistoryDataTable({
   records,
   isLoading = false,
 }: HistoryDataTableProps) {
+  const { t } = useTranslate();
   const [sorting, setSorting] = useState<SortingState>([
     { id: "data", desc: true },
   ]);
@@ -132,7 +126,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Date/Time
+            {t("table.column.dateTime")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -144,7 +138,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            State
+            {t("table.column.state")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -156,7 +150,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Driver
+            {t("table.column.driver")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -168,7 +162,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Speed
+            {t("table.column.speed")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -180,7 +174,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Type
+            {t("table.column.type")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -192,7 +186,7 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Latitude
+            {t("table.column.latitude")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
@@ -204,13 +198,13 @@ export function HistoryDataTable({
             type='button'
             onClick={column.getToggleSortingHandler()}
             className='inline-flex cursor-pointer items-center gap-1.5'>
-            Longitude
+            {t("table.column.longitude")}
             {getSortIcon(column.getIsSorted())}
           </button>
         ),
       },
     ],
-    [],
+    [t],
   );
 
   const table = useReactTable({
@@ -242,11 +236,10 @@ export function HistoryDataTable({
     <Card className='surface-card animate-in fade-in-0 slide-in-from-bottom-2 overflow-hidden duration-500'>
       <CardHeader className='pb-3'>
         <CardTitle className='cursor-text text-base'>
-          Raw Data (Sortable)
+          {t("table.title")}
         </CardTitle>
         <CardDescription className='cursor-text'>
-          {records.length} records found. Paginated rendering to keep the UI
-          responsive.
+          {t("table.description", { count: records.length })}
         </CardDescription>
       </CardHeader>
 
@@ -277,13 +270,13 @@ export function HistoryDataTable({
                 table.setGlobalFilter(event.target.value);
                 table.setPageIndex(0);
               }}
-              placeholder='Search records...'
+              placeholder={t("table.searchPlaceholder")}
               className='h-9 w-full cursor-text rounded-sm border border-input bg-background px-3 text-sm outline-none transition focus-visible:border-ring sm:max-w-xs dark:border-input dark:bg-input/30 dark:hover:bg-input/50'
             />
 
             <div className='flex flex-wrap items-center gap-2'>
               <label className='inline-flex cursor-text items-center gap-2 text-sm text-[color:var(--text-subtle)]'>
-                Rows per page
+                {t("table.rowsPerPage")}
                 <select
                   value={table.getState().pagination.pageSize}
                   onChange={(event) => {
@@ -302,12 +295,12 @@ export function HistoryDataTable({
                 <DropdownMenuTrigger
                   id={COLUMN_SELECTOR_TRIGGER_ID}
                   className='inline-flex h-9 cursor-pointer items-center gap-1 rounded-sm border border-input bg-background px-3 text-sm text-[color:var(--text-strong)] outline-none transition hover:bg-muted hover:text-foreground focus-visible:border-ring aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50'>
-                  Columns
+                  {t("table.columns")}
                   <ChevronDown className='size-3.5 text-muted-foreground' />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end' className='w-48'>
                   <DropdownMenuLabel className='cursor-text'>
-                    Toggle columns
+                    {t("table.toggleColumns")}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {table
@@ -326,7 +319,13 @@ export function HistoryDataTable({
                           column.toggleVisibility(checked);
                         }}>
                         <span className='cursor-text'>
-                          {getColumnLabel(column.id)}
+                          {column.id in COLUMN_LABEL_KEYS
+                            ? t(
+                                COLUMN_LABEL_KEYS[
+                                  column.id as keyof HistoryTableRow
+                                ],
+                              )
+                            : column.id}
                         </span>
                       </DropdownMenuCheckboxItem>
                     ))}
@@ -338,7 +337,7 @@ export function HistoryDataTable({
 
         {!isLoading && table.getFilteredRowModel().rows.length === 0 ? (
           <p className='cursor-text text-sm text-[color:var(--text-subtle)]'>
-            No records to display.
+            {t("table.noRecords")}
           </p>
         ) : null}
 
@@ -389,9 +388,11 @@ export function HistoryDataTable({
         {!isLoading && (
           <div className='flex items-center justify-between gap-2'>
             <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>
-              {table.getFilteredRowModel().rows.length} filtered records • Page{" "}
-              {table.getState().pagination.pageIndex + 1} of{" "}
-              {Math.max(1, table.getPageCount())}
+              {t("table.paginationSummary", {
+                count: table.getFilteredRowModel().rows.length,
+                current: table.getState().pagination.pageIndex + 1,
+                total: Math.max(1, table.getPageCount()),
+              })}
             </p>
 
             <div className='flex items-center gap-2'>
@@ -404,7 +405,7 @@ export function HistoryDataTable({
                 onClick={() => {
                   table.previousPage();
                 }}>
-                Previous
+                {t("table.previous")}
               </Button>
               <Button
                 type='button'
@@ -415,7 +416,7 @@ export function HistoryDataTable({
                 onClick={() => {
                   table.nextPage();
                 }}>
-                Next
+                {t("table.next")}
               </Button>
             </div>
           </div>

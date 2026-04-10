@@ -9,6 +9,7 @@ import type { MarkerPopupData } from "@/types/historyMap";
 import { useHistoryMapPopupPosition } from "@/hooks/historyMap/useHistoryMapPopupPosition";
 import { useHistoryMapRouteRenderer } from "@/hooks/historyMap/useHistoryMapRouteRenderer";
 import { useHistoryMapSetup } from "@/hooks/historyMap/useHistoryMapSetup";
+import { useTranslate } from "@/hooks/useTranslate";
 import type { HistoryRecord } from "@/types/history";
 import { getMappablePoints } from "@/utils/historyMap";
 
@@ -20,6 +21,7 @@ type UseHistoryMapResult = {
 };
 
 export function useHistoryMap(records: HistoryRecord[]): UseHistoryMapResult {
+  const { t } = useTranslate();
   const mapElementRef = useRef<HTMLDivElement | null>(null);
   const popupElementRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
@@ -29,8 +31,8 @@ export function useHistoryMap(records: HistoryRecord[]): UseHistoryMapResult {
   const [activePopup, setActivePopup] = useState<MarkerPopupData | null>(null);
 
   const points = useMemo(() => {
-    return getMappablePoints(records);
-  }, [records]);
+    return getMappablePoints(records, t("common.notInformed"));
+  }, [records, t]);
 
   const handlePopupChange = useCallback((popup: MarkerPopupData | null) => {
     setActivePopup(popup);

@@ -14,12 +14,12 @@ export async function requestHistory(
     const parsedResponse = historyResponseSchema.safeParse(data);
 
     if (parsedResponse.success === false) {
-      throw new Error("Invalid history response payload");
+      throw new Error("errors.history.invalidHistoryResponse");
     }
 
     return parsedResponse.data;
   } catch (error) {
-    const message = getAxiosErrorMessage(error, "History request failed");
+    const message = getAxiosErrorMessage(error, "errors.history.requestFailed");
 
     if (message) {
       throw new Error(message);
@@ -27,6 +27,6 @@ export async function requestHistory(
 
     throw error instanceof Error
       ? error
-      : new Error("Unexpected history request error");
+      : new Error("errors.history.unexpectedHistoryRequest");
   }
 }
