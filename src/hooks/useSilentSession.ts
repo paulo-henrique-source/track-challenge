@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 
 import {
   requestSilentSession,
@@ -12,10 +11,12 @@ import { useSessionStore } from "@/store/sessionStore";
 import { SessionStatus } from "@/types/enums";
 import { isTokenExpired } from "@/utils/jwt";
 
-export function useSilentSessionInitializer() {
+export function useSilentSession() {
   const hasHydrated = useSessionStore((state) => state.hasHydrated);
   const jwtToken = useSessionStore((state) => state.jwtToken);
   const tokenExp = useSessionStore((state) => state.tokenExp);
+  const vehicles = useSessionStore((state) => state.vehicles);
+  const packageTypes = useSessionStore((state) => state.packageTypes);
   const status = useSessionStore((state) => state.status);
   const errorMessage = useSessionStore((state) => state.errorMessage);
   const setStatus = useSessionStore((state) => state.setStatus);
@@ -38,50 +39,8 @@ export function useSilentSessionInitializer() {
     queryFn: requestSilentSession,
     enabled: shouldFetchSilentSession,
     staleTime: 0,
+    retry: false,
   });
-
-  useEffect(() => {
-    if (!hasHydrated || hasValidToken) {
-      return;
-    }
-
-    if (silentSessionQuery.isFetching) {
-      if (status !== SessionStatus.Loading) {
-        setStatus(SessionStatus.Loading);
-      }
-      return;
-    }
-
-    if (
-      silentSessionQuery.isSuccess &&
-      status !== SessionStatus.Authenticated
-    ) {
-      setSession(silentSessionQuery.data);
-      return;
-    }
-
-    if (silentSessionQuery.isError && status !== SessionStatus.Error) {
-      clearSession();
-      setStatus(
-        SessionStatus.Error,
-        silentSessionQuery.error instanceof Error
-          ? silentSessionQuery.error.message
-          : "Silent login failed",
-      );
-    }
-  }, [
-    clearSession,
-    hasHydrated,
-    hasValidToken,
-    setSession,
-    setStatus,
-    silentSessionQuery.data,
-    silentSessionQuery.error,
-    silentSessionQuery.isError,
-    silentSessionQuery.isFetching,
-    silentSessionQuery.isSuccess,
-    status,
-  ]);
 
   useEffect(() => {
     if (!hasHydrated) {
@@ -97,23 +56,52 @@ export function useSilentSessionInitializer() {
 
     if (hasExpiredToken) {
       clearSession();
+      return;
+    }
+
+    if (silentSessionQuery.isFetching) {
+      if (status !== SessionStatus.Loading) {
+        setStatus(SessionStatus.Loading);
+      }
+      return;
+    }
+
+    if (silentSessionQuery.isSuccess) {
+      setSession(silentSessionQuery.data);
+      return;
+    }
+
+    if (silentSessionQuery.isError) {
+      clearSession();
+      setStatus(
+        SessionStatus.Error,
+        silentSessionQuery.error instanceof Error
+          ? silentSessionQuery.error.message
+          : "Falha no login silencioso",
+      );
     }
   }, [
     clearSession,
     hasExpiredToken,
     hasHydrated,
     hasValidToken,
+    setSession,
     setStatus,
+    silentSessionQuery.data,
+    silentSessionQuery.error,
+    silentSessionQuery.isError,
+    silentSessionQuery.isFetching,
+    silentSessionQuery.isSuccess,
     status,
   ]);
 
-  useEffect(() => {
-    if (status !== SessionStatus.Error || !errorMessage) {
-      return;
-    }
-
-    toast.error(errorMessage, {
-      toastId: `session-error-${errorMessage}`,
-    });
-  }, [errorMessage, status]);
+  return {
+    hasHydrated,
+    jwtToken,
+    tokenExp,
+    vehicles,
+    packageTypes,
+    status,
+    errorMessage,
+  };
 }

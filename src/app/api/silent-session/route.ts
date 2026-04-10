@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import {
   getAxiosResponseError,
   parseBackendResponse,
-} from "@/src/utils/silentSession";
+} from "@/utils/silentSession";
 
 export async function POST() {
   const endpoint = process.env.SILENT_SESSION_URL;

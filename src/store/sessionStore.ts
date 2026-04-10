@@ -3,12 +3,12 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { SessionStatus } from "@/src/types/enums";
+import { SessionStatus } from "@/types/enums";
 import type {
   PackageTypeRecord,
   SilentSessionResponse,
   VehicleRecord,
-} from "@/src/types/session";
+} from "@/types/session";
 
 type SessionStore = {
   jwtToken: string | null;
@@ -59,6 +59,7 @@ export const useSessionStore = create<SessionStore>()(
     {
       name: "track-challenge-silent-session",
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
       partialize: (state) => ({
         jwtToken: state.jwtToken,
         tokenExp: state.tokenExp,

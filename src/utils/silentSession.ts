@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { silentSessionBackendResponseSchema } from "@/src/schemas/sessionSchema";
-import type { SilentSessionResponse } from "@/src/types/session";
-import { getJwtExpiration } from "@/src/utils/jwt";
+import { silentSessionBackendResponseSchema } from "@/schemas/sessionSchema";
+import type { SilentSessionResponse } from "@/types/session";
+import { getJwtExpiration } from "@/utils/jwt";
 
 export function parseBackendResponse(response: unknown): SilentSessionResponse {
   const parsedResponse = silentSessionBackendResponseSchema.safeParse(response);
