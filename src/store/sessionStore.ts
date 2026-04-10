@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import { create } from "zustand"
-import { createJSONStorage, persist } from "zustand/middleware"
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import { SessionStatus } from "@/types/enums/sessionStatus"
+import { SessionStatus } from "@/types/enums/sessionStatus";
 import type {
   PackageTypeRecord,
-  SilentSessionPayload,
+  SilentSessionResponse,
   VehicleRecord,
-} from "@/types/session"
+} from "@/types/session";
 
 type SessionStore = {
-  jwtToken: string | null
-  tokenExp: number | null
-  vehicles: VehicleRecord[]
-  packageTypes: PackageTypeRecord[]
-  status: SessionStatus
-  errorMessage: string | null
-  hasHydrated: boolean
-  setHydrated: (value: boolean) => void
-  setStatus: (status: SessionStatus, errorMessage?: string | null) => void
-  setSession: (payload: SilentSessionPayload) => void
-  clearSession: () => void
-}
+  jwtToken: string | null;
+  tokenExp: number | null;
+  vehicles: VehicleRecord[];
+  packageTypes: PackageTypeRecord[];
+  status: SessionStatus;
+  errorMessage: string | null;
+  hasHydrated: boolean;
+  setHydrated: (value: boolean) => void;
+  setStatus: (status: SessionStatus, errorMessage?: string | null) => void;
+  setSession: (response: SilentSessionResponse) => void;
+  clearSession: () => void;
+};
 
 const persistedDefaults = {
   jwtToken: null,
   tokenExp: null,
   vehicles: [] as VehicleRecord[],
   packageTypes: [] as PackageTypeRecord[],
-}
+};
 
 export const useSessionStore = create<SessionStore>()(
   persist(
@@ -67,11 +67,14 @@ export const useSessionStore = create<SessionStore>()(
       }),
       onRehydrateStorage: () => (state, error) => {
         if (error) {
-          state?.setStatus(SessionStatus.Error, "Failed to load persisted session")
+          state?.setStatus(
+            SessionStatus.Error,
+            "Failed to load persisted session",
+          );
         }
 
-        state?.setHydrated(true)
+        state?.setHydrated(true);
       },
-    }
-  )
-)
+    },
+  ),
+);

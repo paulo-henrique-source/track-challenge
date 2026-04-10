@@ -3,7 +3,7 @@ import type { z } from "zod";
 import type {
   packageTypeRecordSchema,
   silentSessionBackendResponseSchema,
-  silentSessionPayloadSchema,
+  silentSessionResponseSchema,
   vehicleRecordSchema,
 } from "@/schemas/sessionSchema";
 
@@ -12,4 +12,4 @@ export type PackageTypeRecord = z.infer<typeof packageTypeRecordSchema>;
 export type SilentSessionBackendResponse = z.infer<
   typeof silentSessionBackendResponseSchema
 >;
-export type SilentSessionPayload = z.infer<typeof silentSessionPayloadSchema>;
+export type SilentSessionResponse = z.infer<typeof silentSessionResponseSchema>;

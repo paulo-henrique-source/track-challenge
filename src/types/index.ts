@@ -1,1 +1,1 @@
-export type { SilentSessionPayload } from "@/types/session";
+export type { SilentSessionResponse } from "@/types/session";

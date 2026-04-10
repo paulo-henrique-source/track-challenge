@@ -42,7 +42,7 @@ export const silentSessionBackendResponseSchema = z.object({
   tipospacote: z.array(packageTypeRecordSchema),
 });
 
-export const silentSessionPayloadSchema = z.object({
+export const silentSessionResponseSchema = z.object({
   jwtToken: z.string().min(1),
   tokenExp: z.number(),
   vehicles: z.array(vehicleRecordSchema),
