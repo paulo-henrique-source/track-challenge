@@ -21,6 +21,7 @@ type DatePickerProps = {
   minDate?: Date;
   maxDate?: Date;
   showTime?: boolean;
+  triggerId?: string;
 };
 
 function clampDate(date: Date, minDate?: Date, maxDate?: Date) {
@@ -48,6 +49,7 @@ export function DatePicker({
   minDate,
   maxDate,
   showTime = false,
+  triggerId,
 }: DatePickerProps) {
   const [internalDate, setInternalDate] = React.useState<Date>();
   const selectedDate = value ?? internalDate;
@@ -134,6 +136,7 @@ export function DatePicker({
   return (
     <Popover>
       <PopoverTrigger
+        id={triggerId}
         className={cn(
           buttonVariants({ variant: "outline" }),
           "h-11 w-full justify-start rounded-sm px-3 text-left text-sm font-normal focus-visible:border-ring focus-visible:ring-0",

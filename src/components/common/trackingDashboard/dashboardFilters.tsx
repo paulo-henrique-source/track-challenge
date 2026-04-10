@@ -13,6 +13,9 @@ import { DatePicker } from "@/components/ui/datePicker";
 import { Label } from "@/components/ui/label";
 import type { PackageTypeRecord, VehicleRecord } from "@/types/session";
 
+const FILTERS_TRIGGER_ID = "dashboard-filters-trigger";
+const FILTERS_PANEL_ID = "dashboard-filters-panel";
+
 type DashboardFiltersProps = {
   vehicles: VehicleRecord[];
   packageTypes: PackageTypeRecord[];
@@ -55,20 +58,31 @@ export function DashboardFilters({
   onClear,
 }: DashboardFiltersProps) {
   return (
-    <Accordion defaultValue={["filters"]}>
+    <Accordion
+      defaultValue={["filters"]}
+      className="animate-in fade-in-0 slide-in-from-bottom-2 duration-500"
+    >
       <AccordionItem value="filters">
-        <AccordionTrigger className="cursor-pointer">
+        <AccordionTrigger
+          id={FILTERS_TRIGGER_ID}
+          aria-controls={FILTERS_PANEL_ID}
+          className="cursor-pointer"
+        >
           <div className="flex items-center gap-2">
             <ShieldCheck className="size-4 text-primary" />
-            <span>Search Filters</span>
+            <span className="cursor-text">Search Filters</span>
           </div>
         </AccordionTrigger>
 
-        <AccordionContent>
+        <AccordionContent
+          id={FILTERS_PANEL_ID}
+          aria-labelledby={FILTERS_TRIGGER_ID}
+        >
           <div className="dashboard-filters-grid pb-3">
             <div className="xl:col-span-2">
-              <Label className="mb-2 block">Vehicle</Label>
+              <Label className="mb-2 block cursor-text">Vehicle</Label>
               <VehicleDropdown
+                triggerId="dashboard-vehicle-trigger"
                 vehicles={vehicles}
                 value={vehicleCode}
                 onChange={onVehicleChange}
@@ -77,8 +91,9 @@ export function DashboardFilters({
             </div>
 
             <div className="xl:col-span-2">
-              <Label className="mb-2 block">Package types</Label>
+              <Label className="mb-2 block cursor-text">Package types</Label>
               <PackageTypesDropdown
+                triggerId="dashboard-package-types-trigger"
                 packageTypes={packageTypes}
                 values={packageTypeCodes}
                 onChange={onPackageTypesChange}
@@ -87,8 +102,9 @@ export function DashboardFilters({
             </div>
 
             <div>
-              <Label className="mb-2 block">Start date</Label>
+              <Label className="mb-2 block cursor-text">Start date</Label>
               <DatePicker
+                triggerId="dashboard-start-date-trigger"
                 value={startDate}
                 onChange={onStartDateChange}
                 placeholder="Select start date"
@@ -98,8 +114,9 @@ export function DashboardFilters({
             </div>
 
             <div>
-              <Label className="mb-2 block">End date</Label>
+              <Label className="mb-2 block cursor-text">End date</Label>
               <DatePicker
+                triggerId="dashboard-end-date-trigger"
                 value={endDate}
                 onChange={onEndDateChange}
                 placeholder="Select end date"

@@ -13,6 +13,7 @@ type VehicleDropdownProps = {
   value: string;
   onChange: (vehicleCode: string) => void;
   disabled?: boolean;
+  triggerId?: string;
 };
 
 export function VehicleDropdown({
@@ -20,6 +21,7 @@ export function VehicleDropdown({
   value,
   onChange,
   disabled = false,
+  triggerId,
 }: VehicleDropdownProps) {
   const [open, setOpen] = useState(false);
 
@@ -32,12 +34,13 @@ export function VehicleDropdown({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
+        id={triggerId}
         disabled={disabled}
         className={cn(
-          "flex h-11 w-full items-center justify-between rounded-sm border border-border bg-background px-3 text-sm font-medium text-foreground outline-none transition focus-visible:border-ring focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-60",
+          "flex h-11 w-full cursor-pointer items-center justify-between rounded-sm border border-border bg-background px-3 text-left text-sm font-medium text-foreground outline-none transition hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-0 aria-expanded:bg-muted aria-expanded:text-foreground disabled:cursor-not-allowed disabled:opacity-60 dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
           !value && "text-muted-foreground",
         )}>
-        <span className='truncate'>{selectedVehicleLabel}</span>
+        <span className='truncate cursor-text'>{selectedVehicleLabel}</span>
         <ChevronDown className='size-4 shrink-0 text-muted-foreground' />
       </PopoverTrigger>
 
@@ -55,7 +58,7 @@ export function VehicleDropdown({
                 key={vehicle.veiccodigo}
                 type='button'
                 variant={isSelected ? "secondary" : "ghost"}
-                className='h-9 w-full justify-start truncate px-2.5'
+                className='h-9 w-full cursor-pointer justify-start truncate px-2.5'
                 onClick={() => {
                   onChange(vehicle.veiccodigo);
                   setOpen(false);

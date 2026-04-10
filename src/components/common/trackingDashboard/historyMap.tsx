@@ -10,23 +10,29 @@ import { HistoryMapPopupContent } from "@/components/common/trackingDashboard/hi
 
 type HistoryMapProps = {
   records: HistoryRecord[];
+  isLoading?: boolean;
 };
 
-export function HistoryMap({ records }: HistoryMapProps) {
+export function HistoryMap({ records, isLoading = false }: HistoryMapProps) {
   const { mapElementRef, popupElementRef, pointsCount, activePopup } =
     useHistoryMap(records);
 
   return (
-    <Card className='surface-card overflow-hidden p-0'>
+    <Card className='surface-card animate-in fade-in-0 slide-in-from-bottom-2 overflow-hidden p-0 duration-500'>
       <CardContent className='p-0'>
-        <HistoryMapHeader pointsCount={pointsCount} />
-        {pointsCount === 0 ? <HistoryMapEmptyState /> : null}
-        <div
-          ref={mapElementRef}
-          className={
-            pointsCount === 0 ? "hidden" : "h-[560px] w-full lg:h-[640px]"
-          }
-        />
+        <HistoryMapHeader pointsCount={isLoading ? 0 : pointsCount} />
+
+        <div className="relative h-[560px] w-full lg:h-[640px]">
+          <div ref={mapElementRef} className="h-full w-full" />
+
+          {!isLoading && pointsCount === 0 ? (
+            <div className="absolute inset-0 z-10">
+              <HistoryMapEmptyState />
+            </div>
+          ) : null}
+
+        </div>
+
         <div
           ref={popupElementRef}
           className={

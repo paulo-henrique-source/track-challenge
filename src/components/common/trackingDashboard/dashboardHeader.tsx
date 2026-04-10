@@ -37,11 +37,15 @@ export function DashboardHeader() {
   }, [hasMounted, isDark]);
 
   return (
-    <header className='dashboard-topbar'>
+    <header className='dashboard-topbar animate-in fade-in-0 slide-in-from-top-1 duration-500'>
       <div className='dashboard-header-inner'>
         <div className='dashboard-search'>
           <Search className='pointer-events-none absolute top-1/2 left-3 z-10 size-4 -translate-y-1/2 text-[color:var(--text-muted)]' />
-          <Input className='dashboard-search-input' placeholder='Search...' />
+          <Input
+            id='dashboard-search-input'
+            className='dashboard-search-input cursor-text'
+            placeholder='Search...'
+          />
         </div>
 
         <div className='flex items-center gap-2'>
@@ -60,10 +64,10 @@ export function DashboardHeader() {
           </Button>
 
           <div className='text-right'>
-            <p className='text-xs font-semibold text-[color:var(--text-strong)]'>
+            <p className='cursor-text text-xs font-semibold text-[color:var(--text-strong)]'>
               Fleet User
             </p>
-            <p className='text-[11px] text-[color:var(--text-subtle)]'>
+            <p className='cursor-text text-[11px] text-[color:var(--text-subtle)]'>
               Life Web
             </p>
           </div>

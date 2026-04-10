@@ -16,6 +16,7 @@ type PackageTypesDropdownProps = {
   values: string[];
   onChange: (packageTypeCodes: string[]) => void;
   disabled?: boolean;
+  triggerId?: string;
 };
 
 export function PackageTypesDropdown({
@@ -23,6 +24,7 @@ export function PackageTypesDropdown({
   values,
   onChange,
   disabled = false,
+  triggerId,
 }: PackageTypesDropdownProps) {
   const [open, setOpen] = useState(false);
 
@@ -54,12 +56,13 @@ export function PackageTypesDropdown({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
+        id={triggerId}
         disabled={disabled}
         className={cn(
-          "flex h-11 w-full items-center justify-between rounded-sm border border-border bg-background px-3 text-left text-sm font-medium text-foreground outline-none transition focus-visible:border-ring focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-60",
+          "flex h-11 w-full cursor-pointer items-center justify-between rounded-sm border border-border bg-background px-3 text-left text-sm font-medium text-foreground outline-none transition hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-0 aria-expanded:bg-muted aria-expanded:text-foreground disabled:cursor-not-allowed disabled:opacity-60 dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
           values.length === 0 && "text-muted-foreground",
         )}>
-        <span className='truncate'>{label}</span>
+        <span className='truncate cursor-text'>{label}</span>
         <ChevronDown className='size-4 shrink-0 text-muted-foreground' />
       </PopoverTrigger>
 
@@ -77,7 +80,7 @@ export function PackageTypesDropdown({
                 key={packageType.pcttcodigo}
                 type='button'
                 className={cn(
-                  "flex h-9 w-full items-center gap-2 rounded-sm px-2.5 text-left text-sm transition",
+                  "flex h-9 w-full cursor-pointer items-center gap-2 rounded-sm px-2.5 text-left text-sm transition",
                   isSelected
                     ? "bg-secondary text-secondary-foreground"
                     : "hover:bg-muted",
@@ -91,7 +94,7 @@ export function PackageTypesDropdown({
                   )}>
                   {isSelected ? <Check className='size-3' /> : null}
                 </span>
-                <span className='truncate'>{packageType.pcttnomeresumido}</span>
+                <span className='truncate cursor-text'>{packageType.pcttnomeresumido}</span>
               </button>
             );
           })
