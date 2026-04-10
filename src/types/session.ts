@@ -5,7 +5,7 @@ import type {
   silentSessionBackendResponseSchema,
   silentSessionResponseSchema,
   vehicleRecordSchema,
-} from "@/schemas/sessionSchema";
+} from "@/src/schemas/sessionSchema";
 
 export type VehicleRecord = z.infer<typeof vehicleRecordSchema>;
 export type PackageTypeRecord = z.infer<typeof packageTypeRecordSchema>;

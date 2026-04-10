@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { silentSessionBackendResponseSchema } from "@/schemas/sessionSchema";
-import type { SilentSessionResponse } from "@/types/session";
-import { getJwtExpiration } from "@/utils/jwt";
+import { silentSessionBackendResponseSchema } from "@/src/schemas/sessionSchema";
+import type { SilentSessionResponse } from "@/src/types/session";
+import { getJwtExpiration } from "@/src/utils/jwt";
 
 export function parseBackendResponse(response: unknown): SilentSessionResponse {
   const parsedResponse = silentSessionBackendResponseSchema.safeParse(response);
@@ -26,7 +26,10 @@ export function parseBackendResponse(response: unknown): SilentSessionResponse {
   };
 }
 
-export function getAxiosResponseError(error: unknown) {
+export function getAxiosResponseError(
+  error: unknown,
+  fallbackMessage = "Request failed",
+) {
   if (!axios.isAxiosError(error)) {
     return null;
   }
@@ -40,7 +43,7 @@ export function getAxiosResponseError(error: unknown) {
     "message" in response &&
     typeof response.message === "string"
       ? response.message
-      : `Silent login failed (${status})`;
+      : `${fallbackMessage} (${status})`;
 
   return { status, message };
 }

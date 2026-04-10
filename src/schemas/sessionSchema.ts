@@ -25,7 +25,7 @@ export const vehicleRecordSchema = z
     veiclocacao: z.string(),
     veicmonitriipcadaut: z.string(),
     veicorigemrastonline: z.string(),
-    veicnomeprefixo: z.string(),
+    veicnomeprefixo: z.string().optional(),
   })
   .catchall(z.unknown());
 

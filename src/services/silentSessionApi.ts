@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { silentSessionResponseSchema } from "@/schemas/sessionSchema";
-import type { SilentSessionResponse } from "@/types/session";
-import { getAxiosErrorMessage } from "@/utils/axios";
+import { silentSessionResponseSchema } from "@/src/schemas/sessionSchema";
+import type { SilentSessionResponse } from "@/src/types/session";
+import { getAxiosErrorMessage } from "@/src/utils/axios";
 
 const INTERNAL_SILENT_SESSION_ENDPOINT = "/api/silent-session";
 
@@ -20,7 +20,7 @@ export async function requestSilentSession(): Promise<SilentSessionResponse> {
 
     return parsedResponse.data;
   } catch (error) {
-    const message = getAxiosErrorMessage(error);
+    const message = getAxiosErrorMessage(error, "Silent login failed");
 
     if (message) {
       throw new Error(message);

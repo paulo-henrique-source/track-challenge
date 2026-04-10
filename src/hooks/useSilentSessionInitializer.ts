@@ -1,24 +1,28 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 import {
   requestSilentSession,
   silentSessionQueryKey,
-} from "@/services/silentSessionApi";
-import { useSessionStore } from "@/store";
-import { SessionStatus } from "@/types/enums";
-import { isTokenExpired } from "@/utils/jwt";
+} from "@/src/services/silentSessionApi";
+import { useSessionStore } from "@/src/store";
+import { SessionStatus } from "@/src/types/enums";
+import { isTokenExpired } from "@/src/utils/jwt";
 
 export function useSilentSessionInitializer() {
   const hasHydrated = useSessionStore((state) => state.hasHydrated);
   const jwtToken = useSessionStore((state) => state.jwtToken);
   const tokenExp = useSessionStore((state) => state.tokenExp);
   const status = useSessionStore((state) => state.status);
+  const errorMessage = useSessionStore((state) => state.errorMessage);
   const setStatus = useSessionStore((state) => state.setStatus);
   const setSession = useSessionStore((state) => state.setSession);
   const clearSession = useSessionStore((state) => state.clearSession);
+
+  const lastSessionErrorRef = useRef<string | null>(null);
 
   const hasToken = Boolean(jwtToken);
   const hasExpiration = typeof tokenExp === "number";
@@ -104,4 +108,20 @@ export function useSilentSessionInitializer() {
     setStatus,
     status,
   ]);
+
+  useEffect(() => {
+    if (status !== SessionStatus.Error || !errorMessage) {
+      lastSessionErrorRef.current = null;
+      return;
+    }
+
+    if (lastSessionErrorRef.current === errorMessage) {
+      return;
+    }
+
+    lastSessionErrorRef.current = errorMessage;
+    toast.error(errorMessage, {
+      toastId: `session-error-${errorMessage}`,
+    });
+  }, [errorMessage, status]);
 }

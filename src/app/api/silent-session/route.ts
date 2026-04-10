@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import {
   getAxiosResponseError,
   parseBackendResponse,
-} from "@/utils/silentSession";
+} from "@/src/utils/silentSession";
 
 export async function POST() {
   const endpoint = process.env.SILENT_SESSION_URL;
@@ -39,7 +39,7 @@ export async function POST() {
 
     return NextResponse.json(normalizedResponse);
   } catch (error) {
-    const axiosError = getAxiosResponseError(error);
+    const axiosError = getAxiosResponseError(error, "Silent login failed");
 
     if (axiosError) {
       return NextResponse.json(

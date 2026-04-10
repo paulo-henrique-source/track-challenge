@@ -1,6 +1,9 @@
 import axios from "axios";
 
-export function getAxiosErrorMessage(error: unknown) {
+export function getAxiosErrorMessage(
+  error: unknown,
+  fallbackMessage = "Request failed",
+) {
   if (!axios.isAxiosError(error)) {
     return null;
   }
@@ -18,5 +21,5 @@ export function getAxiosErrorMessage(error: unknown) {
 
   const status = error.response?.status;
 
-  return status ? `Silent login failed (${status})` : "Silent login failed";
+  return status ? `${fallbackMessage} (${status})` : fallbackMessage;
 }

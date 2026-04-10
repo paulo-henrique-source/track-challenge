@@ -3,12 +3,12 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import { SessionStatus } from "@/types/enums";
+import { SessionStatus } from "@/src/types/enums";
 import type {
   PackageTypeRecord,
   SilentSessionResponse,
   VehicleRecord,
-} from "@/types/session";
+} from "@/src/types/session";
 
 type SessionStore = {
   jwtToken: string | null;

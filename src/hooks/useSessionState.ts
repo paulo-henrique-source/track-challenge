@@ -1,6 +1,6 @@
 "use client";
 
-import { useSessionStore } from "@/store";
+import { useSessionStore } from "@/src/store";
 
 export function useSessionState() {
   const hasHydrated = useSessionStore((state) => state.hasHydrated);

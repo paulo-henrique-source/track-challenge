@@ -1,1 +1,1 @@
-export { useSessionStore } from "@/store/sessionStore"
+export { useSessionStore } from "@/src/store/sessionStore"
