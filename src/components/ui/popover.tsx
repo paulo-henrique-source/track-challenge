@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 
-import { cn } from "@/src/utils/tailwind";
+import { cn } from "@/utils/tailwind";
 
 function Popover({
   modal = false,

@@ -5,14 +5,14 @@ import { endOfDay, format, startOfDay } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 
-import { buttonVariants } from "@/src/components/ui/button";
-import { Calendar } from "@/src/components/ui/calendar";
+import { buttonVariants } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { cn } from "@/src/utils/tailwind";
+} from "@/components/ui/popover";
+import { cn } from "@/utils/tailwind";
 
 type DatePickerProps = {
   value?: Date;

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { cn } from "@/src/utils/tailwind";
+import { cn } from "@/utils/tailwind";
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {
   return (

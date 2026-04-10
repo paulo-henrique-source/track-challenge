@@ -4,7 +4,7 @@ import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { ChevronDown } from "lucide-react";
 
-import { cn } from "@/src/utils/tailwind";
+import { cn } from "@/utils/tailwind";
 
 function Accordion({
   className,
