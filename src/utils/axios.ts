@@ -5,15 +5,15 @@ export function getAxiosErrorMessage(error: unknown) {
     return null;
   }
 
-  const responsePayload = error.response?.data;
+  const response = error.response?.data;
 
   if (
-    responsePayload &&
-    typeof responsePayload === "object" &&
-    "message" in responsePayload &&
-    typeof responsePayload.message === "string"
+    response &&
+    typeof response === "object" &&
+    "message" in response &&
+    typeof response.message === "string"
   ) {
-    return responsePayload.message;
+    return response.message;
   }
 
   const status = error.response?.status;
