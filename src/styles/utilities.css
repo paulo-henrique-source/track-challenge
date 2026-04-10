@@ -1,0 +1,18 @@
+@layer components {
+  .page-shell {
+    @apply min-h-screen px-5 py-8 md:px-10 md:py-12;
+  }
+
+  .page-container {
+    @apply mx-auto flex w-full max-w-5xl flex-col gap-6;
+  }
+
+  .surface-card {
+    @apply rounded-xl border border-border bg-[color:var(--surface-card)];
+    box-shadow: var(--shadow-soft);
+  }
+
+  .text-subtle {
+    color: var(--text-subtle);
+  }
+}

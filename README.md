@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Track Challenge
 
-## Getting Started
+Base inicial do desafio de rastreamento de veiculo (Life Web), pronta para evolucao em proximos prompts.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js 16.1 (App Router)
+- TypeScript
+- Tailwind CSS (v4)
+- shadcn/ui
+- Zustand
+- React Query
+- Zod
+
+## Sessao Silenciosa
+
+A aplicacao executa login automatico com:
+
+```json
+{
+  "usuario": "codetest",
+  "senha": "codetest"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Comportamento implementado:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Cliente chama endpoint interno `/api/silent-session` (server-side).
+- O servidor chama o backend real e protege credenciais fora do bundle do navegador.
+- Persiste `jwtToken`, `vehicles` e `packageTypes` no Zustand (`persist`).
+- No refresh, reaproveita estado persistido sem novo login quando o token ainda esta valido.
+- Valida expiracao via claim `exp` do JWT.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Configure as variaveis em `.env.local`:
 
-## Learn More
+```bash
+SILENT_SESSION_URL=https://seu-backend.com/login
+SILENT_SESSION_USER=codetest
+SILENT_SESSION_PASSWORD=codetest
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev`: ambiente de desenvolvimento
+- `npm run build`: build de producao
+- `npm run start`: sobe o build
+- `npm run lint`: lint do projeto
+- `npm run typecheck`: checagem de tipos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estrutura Inicial
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```txt
+src/
+  app/
+  components/
+    common/
+    ui/
+  constants/
+  features/
+  hooks/
+  services/
+  store/
+  styles/
+  types/
+  utils/
+```
