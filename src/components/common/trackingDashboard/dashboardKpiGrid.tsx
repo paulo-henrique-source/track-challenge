@@ -20,66 +20,66 @@ export function DashboardKpiGrid({
   onlineVehiclesCount,
 }: DashboardKpiGridProps) {
   return (
-    <div className='dashboard-kpi-grid'>
-      <Card className='dashboard-kpi-card'>
+    <div className='dashboard-kpi-grid animate-in fade-in-0 slide-in-from-bottom-1 duration-500'>
+      <Card className='dashboard-kpi-card transition-all duration-300 hover:-translate-y-0.5'>
         <CardContent className='p-0'>
           <div className='flex items-center gap-3'>
             <span className='grid size-9 place-items-center rounded-full bg-[color:var(--brand-soft)] text-primary'>
               <Car className='size-4' />
             </span>
             <div>
-              <p className='text-lg font-semibold text-[color:var(--text-strong)]'>
+              <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
                 {formatNumber(vehiclesCount)}
               </p>
-              <p className='text-xs text-[color:var(--text-subtle)]'>Vehicles loaded</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Vehicles loaded</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className='dashboard-kpi-card'>
+      <Card className='dashboard-kpi-card transition-all duration-300 hover:-translate-y-0.5'>
         <CardContent className='p-0'>
           <div className='flex items-center gap-3'>
             <span className='grid size-9 place-items-center rounded-full bg-[color:var(--surface-elevated)] text-[color:var(--accent-blue)]'>
               <Boxes className='size-4' />
             </span>
             <div>
-              <p className='text-lg font-semibold text-[color:var(--text-strong)]'>
+              <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
                 {formatNumber(packageTypesCount)}
               </p>
-              <p className='text-xs text-[color:var(--text-subtle)]'>Package types</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Package types</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className='dashboard-kpi-card'>
+      <Card className='dashboard-kpi-card transition-all duration-300 hover:-translate-y-0.5'>
         <CardContent className='p-0'>
           <div className='flex items-center gap-3'>
             <span className='grid size-9 place-items-center rounded-full bg-[color:var(--surface-elevated)] text-[color:var(--accent-orange)]'>
               <Route className='size-4' />
             </span>
             <div>
-              <p className='text-lg font-semibold text-[color:var(--text-strong)]'>
+              <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
                 {formatNumber(historyRecordsCount)}
               </p>
-              <p className='text-xs text-[color:var(--text-subtle)]'>Latest records</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Latest records</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className='dashboard-kpi-card'>
+      <Card className='dashboard-kpi-card transition-all duration-300 hover:-translate-y-0.5'>
         <CardContent className='p-0'>
           <div className='flex items-center gap-3'>
             <span className='grid size-9 place-items-center rounded-full bg-[color:var(--surface-elevated)] text-[color:var(--accent-pink)]'>
               <Users className='size-4' />
             </span>
             <div>
-              <p className='text-lg font-semibold text-[color:var(--text-strong)]'>
+              <p className='cursor-text text-lg font-semibold text-[color:var(--text-strong)]'>
                 {formatNumber(onlineVehiclesCount)}
               </p>
-              <p className='text-xs text-[color:var(--text-subtle)]'>Vehicles online</p>
+              <p className='cursor-text text-xs text-[color:var(--text-subtle)]'>Vehicles online</p>
             </div>
           </div>
         </CardContent>

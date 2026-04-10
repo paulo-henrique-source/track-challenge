@@ -43,10 +43,10 @@ export function TrackingDashboard() {
   } = useTrackingDashboard();
 
   return (
-    <main className="page-shell dashboard-shell">
+    <main className="page-shell dashboard-shell animate-in fade-in-0 duration-300">
       <DashboardHeader />
 
-      <section className="page-container">
+      <section className="page-container animate-in fade-in-0 duration-500">
         <DashboardKpiGrid
           vehiclesCount={vehicles.length}
           packageTypesCount={packageTypes.length}
@@ -76,11 +76,14 @@ export function TrackingDashboard() {
         />
 
         <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(300px,360px)]">
-          <HistoryMap records={historyRecords} />
-          <HistoryStateAnalysis records={historyRecords} />
+          <HistoryMap records={historyRecords} isLoading={historyPending} />
+          <HistoryStateAnalysis
+            records={historyRecords}
+            isLoading={historyPending}
+          />
         </div>
 
-        <HistoryDataTable records={historyRecords} />
+        <HistoryDataTable records={historyRecords} isLoading={historyPending} />
       </section>
     </main>
   );
