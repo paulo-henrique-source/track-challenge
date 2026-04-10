@@ -19,6 +19,16 @@ export async function POST() {
   const user = process.env.SILENT_SESSION_USER;
   const password = process.env.SILENT_SESSION_PASSWORD;
 
+  if (!user || !password) {
+    return NextResponse.json(
+      {
+        message:
+          "SILENT_SESSION_USER and SILENT_SESSION_PASSWORD must be configured",
+      },
+      { status: 500 },
+    );
+  }
+
   try {
     const response = await axios.post(endpoint, {
       usuario: user,
