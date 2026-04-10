@@ -5,6 +5,8 @@ import dynamic from "next/dynamic";
 import { DashboardFilters } from "@/components/common/trackingDashboard/dashboardFilters";
 import { DashboardHeader } from "@/components/common/trackingDashboard/dashboardHeader";
 import { DashboardKpiGrid } from "@/components/common/trackingDashboard/dashboardKpiGrid";
+import { HistoryDataTable } from "@/components/common/trackingDashboard/historyDataTable";
+import { HistoryStateAnalysis } from "@/components/common/trackingDashboard/historyStateAnalysis";
 import { useTrackingDashboard } from "@/hooks/useTrackingDashboard";
 
 const HistoryMap = dynamic(
@@ -73,7 +75,12 @@ export function TrackingDashboard() {
           onClear={clearFilters}
         />
 
-        <HistoryMap records={historyRecords} />
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(300px,360px)]">
+          <HistoryMap records={historyRecords} />
+          <HistoryStateAnalysis records={historyRecords} />
+        </div>
+
+        <HistoryDataTable records={historyRecords} />
       </section>
     </main>
   );

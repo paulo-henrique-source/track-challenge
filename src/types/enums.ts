@@ -4,3 +4,10 @@ export enum SessionStatus {
   Authenticated = "authenticated",
   Error = "error",
 }
+
+export enum HistoryRecordState {
+  Open = "open",
+  Closed = "closed",
+  Aberto = "aberto",
+  Fechado = "fechado",
+}

@@ -49,7 +49,7 @@ export function DashboardHeader() {
             type='button'
             variant='ghost'
             size='icon'
-            className='size-9 rounded-sm border border-border'
+            className='size-9 rounded-sm border border-border cursor-pointer'
             onClick={handleToggleTheme}
             aria-label='Toggle dark mode'>
             {hasMounted && isDark ? (
