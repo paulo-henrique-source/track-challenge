@@ -9,62 +9,28 @@ import {
   format as formatDate,
   subHours,
 } from "date-fns";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-import { useSessionState } from "@/src/hooks/useSessionState";
-import { requestHistory } from "@/src/services/historyApi";
-import { SessionStatus } from "@/src/types/enums";
-import type { HistoryRequest } from "@/src/types/history";
-
-const MAX_RANGE_HOURS = 48;
-const MAX_RANGE_MILLISECONDS = MAX_RANGE_HOURS * 60 * 60 * 1000;
-const MAX_END_DATE_FUTURE_DAYS = 45;
-
-// Temporary local mock while dashboard development is in progress.
-// Set to false to restore real payload based on filters.
-const USE_HISTORY_REQUEST_MOCK = true;
-
-const MOCK_HISTORY_REQUEST: Omit<HistoryRequest, "token"> = {
-  inicio: "2026-04-07 00:00:00",
-  fim: "2026-04-08 00:00:00",
-  tipos_pacotes: "1,2,3,4",
-  veiccodigo: "024",
-};
+import {
+  MAX_END_DATE_FUTURE_DAYS,
+  MAX_RANGE_HOURS,
+  MAX_RANGE_MILLISECONDS,
+  MOCK_HISTORY_REQUEST,
+  USE_HISTORY_REQUEST_MOCK,
+} from "@/consts";
+import { useSessionState } from "@/hooks/useSessionState";
+import { requestHistory } from "@/services/historyApi";
+import { SessionStatus } from "@/types/enums";
+import type { HistoryRequest } from "@/types/history";
 
 function formatApiDate(date: Date) {
   return formatDate(date, "yyyy-MM-dd HH:mm:ss");
 }
 
-function getHistoryRecordsCount(response: unknown) {
-  if (Array.isArray(response)) {
-    return response.length;
-  }
-
-  if (response == null) {
-    return 0;
-  }
-
-  if (typeof response === "object") {
-    const objectResponse = response as Record<string, unknown>;
-
-    if (Array.isArray(objectResponse.data)) {
-      return objectResponse.data.length;
-    }
-
-    if (Array.isArray(objectResponse.historico)) {
-      return objectResponse.historico.length;
-    }
-
-    return Object.keys(objectResponse).length;
-  }
-
-  return 0;
-}
-
-function showValidationError(message: string) {
+function showValidationError(message: string, toastId?: string) {
   toast.error(message, {
-    toastId: `validation-${message}`,
+    toastId: toastId ?? `validation-${message}`,
   });
 }
 
@@ -75,6 +41,8 @@ export function useTrackingDashboard() {
   const [packageTypeCodes, setPackageTypeCodes] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
+
+  const isSessionReady = status === SessionStatus.Authenticated;
 
   const maxEndDateFromFuture = useMemo(() => {
     return endOfDay(addDays(new Date(), MAX_END_DATE_FUTURE_DAYS));
@@ -116,39 +84,25 @@ export function useTrackingDashboard() {
     return maxEndDateFromFuture;
   }, [maxEndDateFromFuture, maxEndDateFromRange]);
 
-  const lastHistoryErrorRef = useRef<string | null>(null);
+  const onlineVehiclesCount = useMemo(() => {
+    return vehicles.filter((vehicle) => vehicle.veicorigemrastonline === "1")
+      .length;
+  }, [vehicles]);
 
   const historyMutation = useMutation({
     mutationFn: requestHistory,
+    onError: (error) => {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Unexpected history request error";
+
+      showValidationError(message, `history-error-${message}`);
+    },
   });
 
-  const isSessionReady = status === SessionStatus.Authenticated;
-
-  const onlineVehiclesCount = useMemo(() => {
-    return vehicles.filter((vehicle) => vehicle.veicorigemrastonline === "1").length;
-  }, [vehicles]);
-
-  const historyRecordsCount = useMemo(() => {
-    return getHistoryRecordsCount(historyMutation.data);
-  }, [historyMutation.data]);
-
-  useEffect(() => {
-    if (!(historyMutation.error instanceof Error)) {
-      lastHistoryErrorRef.current = null;
-      return;
-    }
-
-    const message = historyMutation.error.message;
-
-    if (lastHistoryErrorRef.current === message) {
-      return;
-    }
-
-    lastHistoryErrorRef.current = message;
-    toast.error(message, {
-      toastId: `history-error-${message}`,
-    });
-  }, [historyMutation.error]);
+  const historyRecords = historyMutation.data ?? [];
+  const historyRecordsCount = historyRecords.length;
 
   const submitHistory = () => {
     if (!jwtToken) {
@@ -187,14 +141,17 @@ export function useTrackingDashboard() {
     const rangeInMilliseconds = differenceInMilliseconds(endDate, startDate);
 
     if (rangeInMilliseconds > MAX_RANGE_MILLISECONDS) {
-      showValidationError("Maximum allowed range between start and end is 48 hours.");
+      showValidationError(
+        "Maximum allowed range between start and end is 48 hours.",
+      );
       return;
     }
 
     const payload: HistoryRequest = {
       inicio: formatApiDate(startDate),
       fim: formatApiDate(endDate),
-      tipos_pacotes: packageTypeCodes.length > 0 ? packageTypeCodes.join(",") : "",
+      tipos_pacotes:
+        packageTypeCodes.length > 0 ? packageTypeCodes.join(",") : "",
       veiccodigo: vehicleCode,
       token: jwtToken,
     };
@@ -215,6 +172,7 @@ export function useTrackingDashboard() {
     packageTypes,
     isSessionReady,
     onlineVehiclesCount,
+    historyRecords,
     historyRecordsCount,
     historyPending: historyMutation.isPending,
     vehicleCode,

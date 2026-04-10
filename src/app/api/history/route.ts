@@ -1,8 +1,8 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-import { historyRequestSchema } from "@/src/schemas/historySchema";
-import { getAxiosResponseError } from "@/src/utils/silentSession";
+import { historyRequestSchema } from "@/schemas/historySchema";
+import { getAxiosResponseError } from "@/utils/silentSession";
 
 export async function POST(request: Request) {
   const endpoint = process.env.HISTORY_URL;
