@@ -137,17 +137,25 @@ Para usar dados reais do filtro, altere para `false`.
 - `POST /api/silent-session`
 - `POST /api/history`
 
-As credenciais e URLs reais ficam no server (`.env.local`), nao no client.
+As credenciais ficam no server (`.env.local`), nao no client.
+As URLs possuem fallback automatico para os endpoints oficiais da Life Web.
 
 ## Variaveis de ambiente
 
-Use `.env.example` como base e crie `.env.local`:
+Use `.env.example` como base e crie `.env.local`.
+
+Obrigatorias:
 
 ```bash
-SILENT_SESSION_URL=https://lifegestaodefrota.com.br/lifeweb/api/login
 SILENT_SESSION_USER=codetest
 SILENT_SESSION_PASSWORD=codetest
-HISTORY_URL=https://lifegestaodefrota.com.br/lifeweb/api/historico
+```
+
+Opcionais (override de endpoint):
+
+```bash
+# SILENT_SESSION_URL=https://lifegestaodefrota.com.br/lifeweb/api/login
+# HISTORY_URL=https://lifegestaodefrota.com.br/lifeweb/api/historico
 ```
 
 ## Como executar

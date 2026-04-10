@@ -6,15 +6,12 @@ import {
   parseBackendResponse,
 } from "@/utils/silentSession";
 
-export async function POST() {
-  const endpoint = process.env.SILENT_SESSION_URL;
+const DEFAULT_SILENT_SESSION_URL =
+  "https://lifegestaodefrota.com.br/lifeweb/api/login";
 
-  if (!endpoint) {
-    return NextResponse.json(
-      { message: "SILENT_SESSION_URL is not configured" },
-      { status: 500 },
-    );
-  }
+export async function POST() {
+  const endpoint =
+    process.env.SILENT_SESSION_URL?.trim() || DEFAULT_SILENT_SESSION_URL;
 
   const user = process.env.SILENT_SESSION_USER;
   const password = process.env.SILENT_SESSION_PASSWORD;

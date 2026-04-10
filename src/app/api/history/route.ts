@@ -4,15 +4,11 @@ import { NextResponse } from "next/server";
 import { historyRequestSchema } from "@/schemas/historySchema";
 import { getAxiosResponseError } from "@/utils/silentSession";
 
-export async function POST(request: Request) {
-  const endpoint = process.env.HISTORY_URL;
+const DEFAULT_HISTORY_URL =
+  "https://lifegestaodefrota.com.br/lifeweb/api/historico";
 
-  if (!endpoint) {
-    return NextResponse.json(
-      { message: "HISTORY_URL is not configured" },
-      { status: 500 },
-    );
-  }
+export async function POST(request: Request) {
+  const endpoint = process.env.HISTORY_URL?.trim() || DEFAULT_HISTORY_URL;
 
   const user = process.env.SILENT_SESSION_USER;
 
