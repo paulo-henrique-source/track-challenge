@@ -55,8 +55,6 @@ export async function POST(request: Request) {
       token,
     });
 
-    console.log("[history-api] backend response:", response.data);
-
     return NextResponse.json(response.data);
   } catch (error) {
     const axiosError = getAxiosResponseError(error, "History request failed");
