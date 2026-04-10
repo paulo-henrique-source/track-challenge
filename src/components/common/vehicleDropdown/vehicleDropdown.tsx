@@ -34,14 +34,14 @@ export function VehicleDropdown({
       <PopoverTrigger
         disabled={disabled}
         className={cn(
-          "flex h-11 w-full items-center justify-between rounded-xl border border-border bg-background px-3 text-sm font-medium text-foreground outline-none transition focus-visible:ring-2 focus-visible:ring-ring/60 disabled:cursor-not-allowed disabled:opacity-60",
+          "flex h-11 w-full items-center justify-between rounded-sm border border-border bg-background px-3 text-sm font-medium text-foreground outline-none transition focus-visible:border-ring focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-60",
           !value && "text-muted-foreground",
         )}>
         <span className='truncate'>{selectedVehicleLabel}</span>
         <ChevronDown className='size-4 shrink-0 text-muted-foreground' />
       </PopoverTrigger>
 
-      <PopoverContent className='max-h-72 w-[min(28rem,calc(100vw-2rem))] gap-1 overflow-y-auto p-1'>
+      <PopoverContent className='max-h-72 w-(--anchor-width) gap-1 overflow-y-auto bg-popover p-1'>
         {vehicles.length === 0 ? (
           <p className='px-2 py-1 text-sm text-muted-foreground'>
             No vehicles available

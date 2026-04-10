@@ -3,7 +3,11 @@
 import { Check, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import type { PackageTypeRecord } from "@/types/session";
 import { cn } from "@/utils/tailwind";
 
@@ -24,14 +28,14 @@ export function PackageTypesDropdown({
 
   const label = useMemo(() => {
     if (values.length === 0) {
-      return "All package types (-1)";
+      return "All package types";
     }
 
     const selectedLabels = packageTypes
       .filter((packageType) => values.includes(packageType.pcttcodigo))
       .map((packageType) => packageType.pcttnomeresumido);
 
-    if (selectedLabels.length <= 2) {
+    if (selectedLabels.length <= 3) {
       return selectedLabels.join(", ");
     }
 
@@ -52,14 +56,14 @@ export function PackageTypesDropdown({
       <PopoverTrigger
         disabled={disabled}
         className={cn(
-          "flex h-11 w-full items-center justify-between rounded-xl border border-border bg-background px-3 text-left text-sm font-medium text-foreground outline-none transition focus-visible:ring-2 focus-visible:ring-ring/60 disabled:cursor-not-allowed disabled:opacity-60",
+          "flex h-11 w-full items-center justify-between rounded-sm border border-border bg-background px-3 text-left text-sm font-medium text-foreground outline-none transition focus-visible:border-ring focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-60",
           values.length === 0 && "text-muted-foreground",
         )}>
         <span className='truncate'>{label}</span>
         <ChevronDown className='size-4 shrink-0 text-muted-foreground' />
       </PopoverTrigger>
 
-      <PopoverContent className='max-h-72 w-[min(22rem,calc(100vw-2rem))] gap-1 overflow-y-auto p-1'>
+      <PopoverContent className='max-h-72 w-(--anchor-width) gap-1 overflow-y-auto bg-popover p-1'>
         {packageTypes.length === 0 ? (
           <p className='px-2 py-1 text-sm text-muted-foreground'>
             No package types available
@@ -73,7 +77,7 @@ export function PackageTypesDropdown({
                 key={packageType.pcttcodigo}
                 type='button'
                 className={cn(
-                  "flex h-9 w-full items-center gap-2 rounded-lg px-2.5 text-left text-sm transition",
+                  "flex h-9 w-full items-center gap-2 rounded-sm px-2.5 text-left text-sm transition",
                   isSelected
                     ? "bg-secondary text-secondary-foreground"
                     : "hover:bg-muted",
@@ -82,7 +86,8 @@ export function PackageTypesDropdown({
                 <span
                   className={cn(
                     "flex size-4 items-center justify-center rounded-sm border border-border",
-                    isSelected && "border-primary bg-primary text-primary-foreground",
+                    isSelected &&
+                      "border-primary bg-primary text-primary-foreground",
                   )}>
                   {isSelected ? <Check className='size-3' /> : null}
                 </span>
