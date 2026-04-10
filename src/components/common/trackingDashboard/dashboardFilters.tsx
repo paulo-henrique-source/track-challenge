@@ -1,4 +1,4 @@
-import { Search, ShieldCheck } from "lucide-react";
+import { Search, SlidersHorizontal } from "lucide-react";
 
 import { PackageTypesDropdown } from "@/components/common/packageTypesDropdown/packageTypesDropdown";
 import { VehicleDropdown } from "@/components/common/vehicleDropdown/vehicleDropdown";
@@ -69,7 +69,7 @@ export function DashboardFilters({
           className="cursor-pointer"
         >
           <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-primary" />
+            <SlidersHorizontal className="size-4 text-primary" />
             <span className="cursor-text">Search Filters</span>
           </div>
         </AccordionTrigger>
