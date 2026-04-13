@@ -209,7 +209,7 @@ src/
 ## Entrega
 
 - Codigo-fonte: https://github.com/paulo-henrique-source/track-challenge
-- Live demo: [preencher-url]
+- Live demo: https://track-challenge.vercel.app
 
 ## Pergunta do desafio
 

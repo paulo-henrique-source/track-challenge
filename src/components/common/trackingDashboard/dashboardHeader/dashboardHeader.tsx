@@ -74,7 +74,7 @@ export function DashboardHeader() {
             type='button'
             variant='ghost'
             size='icon'
-            className='size-9 rounded-sm border border-border cursor-pointer'
+            className='size-9 rounded-sm border border-border cursor-pointer transition hover:border-[color:var(--brand)] hover:bg-muted hover:text-foreground focus-visible:border-ring dark:border-input dark:bg-input/30 dark:hover:border-[color:var(--brand)] dark:hover:bg-input/50'
             onClick={handleToggleTheme}
             aria-label={t("header.themeToggle")}>
             {hasMounted && isDark ? (
