@@ -16,8 +16,6 @@ import {
   MAX_END_DATE_FUTURE_DAYS,
   MAX_RANGE_HOURS,
   MAX_RANGE_MILLISECONDS,
-  MOCK_HISTORY_REQUEST,
-  USE_HISTORY_REQUEST_MOCK,
 } from "@/consts";
 import { useSessionState } from "@/hooks/useSessionState";
 import { useTranslate } from "@/hooks/useTranslate";
@@ -116,14 +114,6 @@ export function useTrackingDashboard() {
   const submitHistory = () => {
     if (!jwtToken) {
       showValidationError(t("errors.session.tokenUnavailable"));
-      return;
-    }
-
-    if (USE_HISTORY_REQUEST_MOCK) {
-      historyMutation.mutate({
-        ...MOCK_HISTORY_REQUEST,
-        token: jwtToken,
-      });
       return;
     }
 

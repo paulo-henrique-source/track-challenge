@@ -121,17 +121,6 @@ Implementado.
 - Feedback visual de hover com transicao de borda para `--brand`
 - Animacoes utilitarias com classes Tailwind + `tw-animate-css`
 
-## Observacoes importantes
-
-### Mock de historico
-
-Atualmente o projeto esta com mock local de historico habilitado para desenvolvimento:
-
-- `src/consts/index.ts`
-- `USE_HISTORY_REQUEST_MOCK = true`
-
-Para usar dados reais do filtro, altere para `false`.
-
 ### Endpoints internos
 
 - `POST /api/silent-session`
