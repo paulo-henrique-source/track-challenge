@@ -127,5 +127,6 @@
 
   body {
     @apply bg-[color:var(--surface-page)] text-foreground antialiased;
+    background: var(--surface-card);
   }
 }

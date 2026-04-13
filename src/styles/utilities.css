@@ -32,7 +32,7 @@
   }
 
   .dashboard-topbar {
-    @apply w-full border-y border-border/70 bg-[color:var(--surface-card)];
+    @apply w-full border-b border-border/70 bg-[color:var(--surface-card)] md:border-t;
     padding-top: constant(safe-area-inset-top);
     padding-top: env(safe-area-inset-top);
     box-shadow: var(--shadow-soft);

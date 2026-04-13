@@ -15,32 +15,6 @@ type ProvidersProps = {
 };
 
 type ToastTheme = "light" | "dark";
-const THEME_COLOR_META_SELECTOR = "meta[name='theme-color']";
-
-function syncBrowserThemeColor(root: HTMLElement) {
-  const surfaceCardColor = window
-    .getComputedStyle(root)
-    .getPropertyValue("--surface-card")
-    .trim();
-  const resolvedThemeColor = surfaceCardColor || "#ffffff";
-
-  const themeColorMetaTags = Array.from(
-    document.querySelectorAll<HTMLMetaElement>(THEME_COLOR_META_SELECTOR),
-  );
-
-  if (themeColorMetaTags.length === 0) {
-    const themeColorMeta = document.createElement("meta");
-    themeColorMeta.name = "theme-color";
-    themeColorMeta.content = resolvedThemeColor;
-    document.head.append(themeColorMeta);
-    return;
-  }
-
-  for (const themeColorMeta of themeColorMetaTags) {
-    themeColorMeta.removeAttribute("media");
-    themeColorMeta.content = resolvedThemeColor;
-  }
-}
 
 function SessionInitializerRunner() {
   useSilentSessionInitializer();
@@ -73,7 +47,6 @@ export function Providers({ children }: ProvidersProps) {
 
     const syncTheme = () => {
       setToastTheme(root.classList.contains("dark") ? "dark" : "light");
-      syncBrowserThemeColor(root);
     };
 
     const frameId = window.requestAnimationFrame(() => {

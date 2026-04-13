@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
 import { DEFAULT_LANGUAGE } from "@/i18n/config";
@@ -23,17 +23,8 @@ export const metadata: Metadata = {
   applicationName: translateFromDictionary(DEFAULT_LANGUAGE, "common.appName"),
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
     title: translateFromDictionary(DEFAULT_LANGUAGE, "common.appName"),
   },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  colorScheme: "light dark",
-  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

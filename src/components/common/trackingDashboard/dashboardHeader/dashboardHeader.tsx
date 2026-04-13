@@ -47,7 +47,7 @@ export function DashboardHeader() {
     <header className='dashboard-topbar animate-in fade-in-0 slide-in-from-top-1 duration-500'>
       <div className='dashboard-header-inner'>
         <div className='flex min-w-0 flex-1 items-center gap-1 sm:gap-2'>
-          <span className='hidden cursor-text text-sm font-medium text-[color:var(--text-subtle)] min-[390px]:inline'>
+          <span className='hidden cursor-text text-sm font-medium text-[color:var(--text-subtle)] md:inline'>
             {t("header.language.label")}
           </span>
           <div className='relative'>
@@ -69,7 +69,16 @@ export function DashboardHeader() {
           </div>
         </div>
 
-        <div className='flex shrink-0 items-center gap-1.5 sm:gap-2'>
+        <div className='flex shrink-0 items-center gap-1'>
+          <div className='w-[4.8rem] text-right min-[390px]:w-[5.5rem] md:w-auto md:min-w-max'>
+            <p className='cursor-text truncate text-[11px] font-semibold whitespace-nowrap text-[color:var(--text-strong)] min-[390px]:text-xs md:overflow-visible md:text-clip'>
+              {t("common.fleetUser")}
+            </p>
+            <p className='cursor-text truncate text-[10px] whitespace-nowrap text-[color:var(--text-subtle)] min-[390px]:text-[11px] md:overflow-visible md:text-clip'>
+              {t("common.appName")}
+            </p>
+          </div>
+
           <Button
             type='button'
             variant='ghost'
@@ -83,15 +92,6 @@ export function DashboardHeader() {
               <Moon className='size-4' />
             )}
           </Button>
-
-          <div className='w-[4.8rem] text-right min-[390px]:w-[5.5rem]'>
-            <p className='cursor-text truncate text-[11px] font-semibold whitespace-nowrap text-[color:var(--text-strong)] min-[390px]:text-xs'>
-              {t("common.fleetUser")}
-            </p>
-            <p className='cursor-text truncate text-[10px] whitespace-nowrap text-[color:var(--text-subtle)] min-[390px]:text-[11px]'>
-              {t("common.appName")}
-            </p>
-          </div>
         </div>
       </div>
     </header>
