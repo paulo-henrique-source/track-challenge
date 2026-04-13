@@ -18,29 +18,32 @@ import {
 } from './dropdownMenu'
 
 jest.mock('@base-ui/react/menu', () => {
-  const wrap =
-    (Tag: React.ElementType) =>
-    ({ children, ...props }: Record<string, unknown>) => {
+  const wrap = (Tag: React.ElementType, displayName: string) => {
+    const Wrapped = ({ children, ...props }: Record<string, unknown>) => {
       return <Tag {...props}>{children as React.ReactNode}</Tag>
     }
 
+    Wrapped.displayName = displayName
+    return Wrapped
+  }
+
   return {
     Menu: {
-      Root: wrap('div'),
-      Portal: wrap('div'),
-      Trigger: wrap('button'),
-      Positioner: wrap('div'),
-      Popup: wrap('div'),
-      Group: wrap('div'),
-      Item: wrap('button'),
-      SubmenuRoot: wrap('div'),
-      SubmenuTrigger: wrap('button'),
-      CheckboxItem: wrap('button'),
-      CheckboxItemIndicator: wrap('span'),
-      RadioGroup: wrap('div'),
-      RadioItem: wrap('button'),
-      RadioItemIndicator: wrap('span'),
-      Separator: wrap('hr'),
+      Root: wrap('div', 'MenuRootMock'),
+      Portal: wrap('div', 'MenuPortalMock'),
+      Trigger: wrap('button', 'MenuTriggerMock'),
+      Positioner: wrap('div', 'MenuPositionerMock'),
+      Popup: wrap('div', 'MenuPopupMock'),
+      Group: wrap('div', 'MenuGroupMock'),
+      Item: wrap('button', 'MenuItemMock'),
+      SubmenuRoot: wrap('div', 'MenuSubmenuRootMock'),
+      SubmenuTrigger: wrap('button', 'MenuSubmenuTriggerMock'),
+      CheckboxItem: wrap('button', 'MenuCheckboxItemMock'),
+      CheckboxItemIndicator: wrap('span', 'MenuCheckboxItemIndicatorMock'),
+      RadioGroup: wrap('div', 'MenuRadioGroupMock'),
+      RadioItem: wrap('button', 'MenuRadioItemMock'),
+      RadioItemIndicator: wrap('span', 'MenuRadioItemIndicatorMock'),
+      Separator: wrap('hr', 'MenuSeparatorMock'),
     },
   }
 })

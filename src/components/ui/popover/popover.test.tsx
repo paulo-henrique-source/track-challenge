@@ -10,21 +10,24 @@ import {
 } from './popover'
 
 jest.mock('@base-ui/react/popover', () => {
-  const wrap =
-    (Tag: React.ElementType) =>
-    ({ children, ...props }: Record<string, unknown>) => {
+  const wrap = (Tag: React.ElementType, displayName: string) => {
+    const Wrapped = ({ children, ...props }: Record<string, unknown>) => {
       return <Tag {...props}>{children as React.ReactNode}</Tag>
     }
 
+    Wrapped.displayName = displayName
+    return Wrapped
+  }
+
   return {
     Popover: {
-      Root: wrap('div'),
-      Trigger: wrap('button'),
-      Portal: wrap('div'),
-      Positioner: wrap('div'),
-      Popup: wrap('div'),
-      Title: wrap('h3'),
-      Description: wrap('p'),
+      Root: wrap('div', 'PopoverRootMock'),
+      Trigger: wrap('button', 'PopoverTriggerMock'),
+      Portal: wrap('div', 'PopoverPortalMock'),
+      Positioner: wrap('div', 'PopoverPositionerMock'),
+      Popup: wrap('div', 'PopoverPopupMock'),
+      Title: wrap('h3', 'PopoverTitleMock'),
+      Description: wrap('p', 'PopoverDescriptionMock'),
     },
   }
 })

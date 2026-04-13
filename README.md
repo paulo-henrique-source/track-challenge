@@ -68,7 +68,7 @@ Implementado.
 
 Arquivos principais:
 
-- `src/components/common/trackingDashboard/dashboardFilters.tsx`
+- `src/components/common/trackingDashboard/dashboardFilters/dashboardFilters.tsx`
 - `src/hooks/useTrackingDashboard.ts`
 - `src/app/api/history/route.ts`
 
@@ -84,7 +84,7 @@ Implementado.
 
 Arquivos principais:
 
-- `src/components/common/trackingDashboard/historyMap.tsx`
+- `src/components/common/trackingDashboard/historyMap/historyMap.tsx`
 - `src/hooks/historyMap/*`
 
 ### 4) Dashboard - Visualizacao de dados brutos
@@ -100,7 +100,7 @@ Implementado.
 
 Arquivo principal:
 
-- `src/components/common/trackingDashboard/historyDataTable.tsx`
+- `src/components/common/trackingDashboard/historyDataTable/historyDataTable.tsx`
 
 ### 5) Analise de dados (`estado`)
 
@@ -111,7 +111,7 @@ Implementado.
 
 Arquivo principal:
 
-- `src/components/common/trackingDashboard/historyStateAnalysis.tsx`
+- `src/components/common/trackingDashboard/historyStateAnalysis/historyStateAnalysis.tsx`
 
 ### Motion / Animacoes de UI
 
@@ -126,13 +126,13 @@ Implementado.
 Para medir corretamente, execute em **producao**:
 
 ```bash
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 Depois rode o Lighthouse em `http://localhost:3000` (mobile e desktop).
 
-Motivo: `npm run dev` inclui overhead de desenvolvimento (HMR, sourcemaps, instrumentacao) e tende a distorcer score, principalmente em Performance.
+Motivo: `yarn dev` inclui overhead de desenvolvimento (HMR, sourcemaps, instrumentacao) e tende a distorcer score, principalmente em Performance.
 
 ### Otimizacoes aplicadas
 
@@ -171,8 +171,8 @@ Opcionais (override de endpoint):
 ## Como executar
 
 ```bash
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 Aplicacao em desenvolvimento:

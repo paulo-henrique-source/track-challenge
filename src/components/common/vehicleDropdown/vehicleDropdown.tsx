@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button/button";
 import { useTranslate } from "@/hooks/useTranslate";
@@ -17,6 +17,15 @@ type VehicleDropdownProps = {
   triggerId?: string;
 };
 
+function resolveSelectedVehicleLabel(
+  vehicles: VehicleRecord[],
+  value: string,
+  t: (key: string, values?: Record<string, string | number>) => string,
+) {
+  const selectedVehicle = vehicles.find((vehicle) => vehicle.veiccodigo === value);
+  return selectedVehicle?.veicnome ?? t("dropdowns.vehicle.placeholder");
+}
+
 export function VehicleDropdown({
   vehicles,
   value,
@@ -24,14 +33,9 @@ export function VehicleDropdown({
   disabled = false,
   triggerId,
 }: VehicleDropdownProps) {
-  const { t, language } = useTranslate();
+  const { t } = useTranslate();
   const [open, setOpen] = useState(false);
-
-  const selectedVehicleLabel = useMemo(() => {
-    const selectedVehicle = vehicles.find((vehicle) => vehicle.veiccodigo === value);
-
-    return selectedVehicle?.veicnome ?? t("dropdowns.vehicle.placeholder");
-  }, [language, t, value, vehicles]);
+  const selectedVehicleLabel = resolveSelectedVehicleLabel(vehicles, value, t);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

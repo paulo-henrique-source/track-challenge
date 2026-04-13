@@ -1,5 +1,3 @@
-import type { HistoryRequest } from "@/types/history";
-
 export const INTERNAL_SILENT_SESSION_ENDPOINT = "/api/silent-session";
 export const INTERNAL_HISTORY_ENDPOINT = "/api/history";
 

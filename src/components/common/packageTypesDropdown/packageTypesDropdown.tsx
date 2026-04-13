@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { useTranslate } from "@/hooks/useTranslate";
 import {
@@ -20,6 +20,28 @@ type PackageTypesDropdownProps = {
   triggerId?: string;
 };
 
+function resolvePackageTypesLabel(
+  values: string[],
+  packageTypes: PackageTypeRecord[],
+  t: (key: string, values?: Record<string, string | number>) => string,
+) {
+  if (values.length === 0) {
+    return t("dropdowns.packageTypes.all");
+  }
+
+  const selectedLabels = packageTypes
+    .filter((packageType) => values.includes(packageType.pcttcodigo))
+    .map((packageType) => packageType.pcttnomeresumido);
+
+  if (selectedLabels.length <= 3) {
+    return selectedLabels.join(", ");
+  }
+
+  return t("dropdowns.packageTypes.selected", {
+    count: selectedLabels.length,
+  });
+}
+
 export function PackageTypesDropdown({
   packageTypes,
   values,
@@ -27,26 +49,9 @@ export function PackageTypesDropdown({
   disabled = false,
   triggerId,
 }: PackageTypesDropdownProps) {
-  const { t, language } = useTranslate();
+  const { t } = useTranslate();
   const [open, setOpen] = useState(false);
-
-  const label = useMemo(() => {
-    if (values.length === 0) {
-      return t("dropdowns.packageTypes.all");
-    }
-
-    const selectedLabels = packageTypes
-      .filter((packageType) => values.includes(packageType.pcttcodigo))
-      .map((packageType) => packageType.pcttnomeresumido);
-
-    if (selectedLabels.length <= 3) {
-      return selectedLabels.join(", ");
-    }
-
-    return t("dropdowns.packageTypes.selected", {
-      count: selectedLabels.length,
-    });
-  }, [language, packageTypes, t, values]);
+  const label = resolvePackageTypesLabel(values, packageTypes, t);
 
   const toggleValue = (code: string) => {
     if (values.includes(code)) {
