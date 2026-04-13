@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
 import { DEFAULT_LANGUAGE } from "@/i18n/config";
@@ -20,6 +20,23 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: translateFromDictionary(DEFAULT_LANGUAGE, "meta.title"),
   description: translateFromDictionary(DEFAULT_LANGUAGE, "meta.description"),
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "light dark",
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "#ffffff",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "#1f2438",
+    },
+  ],
 };
 
 export default function RootLayout({

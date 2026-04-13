@@ -15,6 +15,30 @@ type ProvidersProps = {
 };
 
 type ToastTheme = "light" | "dark";
+const THEME_COLOR_META_SELECTOR = "meta[name='theme-color']";
+
+function syncBrowserThemeColor(root: HTMLElement) {
+  const surfaceCardColor = window
+    .getComputedStyle(root)
+    .getPropertyValue("--surface-card")
+    .trim();
+
+  if (surfaceCardColor.length === 0) {
+    return;
+  }
+
+  let themeColorMeta = document.querySelector<HTMLMetaElement>(
+    THEME_COLOR_META_SELECTOR,
+  );
+
+  if (themeColorMeta === null) {
+    themeColorMeta = document.createElement("meta");
+    themeColorMeta.name = "theme-color";
+    document.head.append(themeColorMeta);
+  }
+
+  themeColorMeta.content = surfaceCardColor;
+}
 
 function SessionInitializerRunner() {
   useSilentSessionInitializer();
@@ -47,6 +71,7 @@ export function Providers({ children }: ProvidersProps) {
 
     const syncTheme = () => {
       setToastTheme(root.classList.contains("dark") ? "dark" : "light");
+      syncBrowserThemeColor(root);
     };
 
     const frameId = window.requestAnimationFrame(() => {
