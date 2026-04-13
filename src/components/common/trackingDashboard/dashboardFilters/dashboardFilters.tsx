@@ -9,10 +9,10 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/datePicker";
-import { Label } from "@/components/ui/label";
+} from "@/components/ui/accordion/accordion";
+import { Button } from "@/components/ui/button/button";
+import { DatePicker } from "@/components/ui/datePicker/datePicker";
+import { Label } from "@/components/ui/label/label";
 import { useTranslate } from "@/hooks/useTranslate";
 import type { PackageTypeRecord, VehicleRecord } from "@/types/session";
 

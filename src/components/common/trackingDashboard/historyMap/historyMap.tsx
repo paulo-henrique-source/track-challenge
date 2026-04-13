@@ -1,12 +1,12 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card/card";
 import { useHistoryMap } from "@/hooks/historyMap/useHistoryMap";
 import type { HistoryRecord } from "@/types/history";
 
-import { HistoryMapEmptyState } from "@/components/common/trackingDashboard/historyMapEmptyState";
-import { HistoryMapHeader } from "@/components/common/trackingDashboard/historyMapHeader";
-import { HistoryMapPopupContent } from "@/components/common/trackingDashboard/historyMapPopupContent";
+import { HistoryMapEmptyState } from "@/components/common/trackingDashboard/historyMapEmptyState/historyMapEmptyState";
+import { HistoryMapHeader } from "@/components/common/trackingDashboard/historyMapHeader/historyMapHeader";
+import { HistoryMapPopupContent } from "@/components/common/trackingDashboard/historyMapPopupContent/historyMapPopupContent";
 
 type HistoryMapProps = {
   records: HistoryRecord[];

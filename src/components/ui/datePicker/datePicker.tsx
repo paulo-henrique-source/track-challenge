@@ -6,15 +6,15 @@ import { enUS, ptBR } from "date-fns/locale";
 import type { Locale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { buttonVariants } from "@/components/ui/button/button";
+import { Calendar } from "@/components/ui/calendar/calendar";
 import { useTranslate } from "@/hooks/useTranslate";
 import type { AppLanguage } from "@/i18n/config";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover/popover";
 import { cn } from "@/utils/tailwind";
 
 type DatePickerProps = {

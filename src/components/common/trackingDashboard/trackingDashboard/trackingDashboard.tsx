@@ -2,16 +2,16 @@
 
 import dynamic from "next/dynamic";
 
-import { DashboardFilters } from "@/components/common/trackingDashboard/dashboardFilters";
-import { DashboardHeader } from "@/components/common/trackingDashboard/dashboardHeader";
-import { DashboardKpiGrid } from "@/components/common/trackingDashboard/dashboardKpiGrid";
-import { HistoryDataTable } from "@/components/common/trackingDashboard/historyDataTable";
-import { HistoryStateAnalysis } from "@/components/common/trackingDashboard/historyStateAnalysis";
+import { DashboardFilters } from "@/components/common/trackingDashboard/dashboardFilters/dashboardFilters";
+import { DashboardHeader } from "@/components/common/trackingDashboard/dashboardHeader/dashboardHeader";
+import { DashboardKpiGrid } from "@/components/common/trackingDashboard/dashboardKpiGrid/dashboardKpiGrid";
+import { HistoryDataTable } from "@/components/common/trackingDashboard/historyDataTable/historyDataTable";
+import { HistoryStateAnalysis } from "@/components/common/trackingDashboard/historyStateAnalysis/historyStateAnalysis";
 import { useTrackingDashboard } from "@/hooks/useTrackingDashboard";
 
 const HistoryMap = dynamic(
   () =>
-    import("@/components/common/trackingDashboard/historyMap").then(
+    import("@/components/common/trackingDashboard/historyMap/historyMap").then(
       (module) => module.HistoryMap,
     ),
   { ssr: false },

@@ -3,7 +3,7 @@
 import { Languages, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { useTranslate } from "@/hooks/useTranslate";
 import type { AppLanguage } from "@/i18n/config";
 import { getPreferredDarkMode, setPreferredDarkMode } from "@/utils/theme";

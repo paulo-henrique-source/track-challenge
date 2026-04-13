@@ -8,7 +8,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/ui/popover/popover";
 import type { PackageTypeRecord } from "@/types/session";
 import { cn } from "@/utils/tailwind";
 

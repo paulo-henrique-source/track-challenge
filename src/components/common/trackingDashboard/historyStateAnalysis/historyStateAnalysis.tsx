@@ -8,8 +8,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@/components/ui/card/card";
+import { Skeleton } from "@/components/ui/skeleton/skeleton";
 import { useTranslate } from "@/hooks/useTranslate";
 import { HistoryRecordState } from "@/types/enums";
 import type { HistoryRecord } from "@/types/history";
