@@ -65,7 +65,7 @@
     }
   },
   "table": {
-    "title": "Raw Data (Sortable)",
+    "title": "Raw Data",
     "description": "{{count}} records found. Paginated rendering to keep the UI responsive.",
     "searchPlaceholder": "Search records...",
     "rowsPerPage": "Rows per page",

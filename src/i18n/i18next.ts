@@ -34,6 +34,6 @@ export function ensureI18nInitialized() {
   return initializationPromise;
 }
 
-void ensureI18nInitialized();
+ensureI18nInitialized();
 
 export { i18next };

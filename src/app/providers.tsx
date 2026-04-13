@@ -39,7 +39,7 @@ export function Providers({ children }: ProvidersProps) {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    void useSessionStore.persist.rehydrate();
+    useSessionStore.persist.rehydrate();
   }, []);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function Providers({ children }: ProvidersProps) {
       {children}
       {hasMounted ? (
         <ToastContainer
-          position="top-center"
+          position='top-center'
           theme={toastTheme}
           autoClose={3500}
           hideProgressBar={false}

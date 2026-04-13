@@ -65,7 +65,7 @@
     }
   },
   "table": {
-    "title": "Dados Brutos (Ordenável)",
+    "title": "Dados Brutos",
     "description": "{{count}} registros encontrados. Renderização paginada para manter a interface responsiva.",
     "searchPlaceholder": "Buscar registros...",
     "rowsPerPage": "Linhas por página",

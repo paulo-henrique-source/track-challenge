@@ -64,7 +64,7 @@ export function useTranslate() {
       syncLanguage();
     };
 
-    void initialize();
+    initialize();
     i18next.on("languageChanged", syncLanguage);
 
     return () => {
@@ -73,35 +73,26 @@ export function useTranslate() {
     };
   }, []);
 
-  const setLanguage = useCallback(
-    (nextLanguage: AppLanguage) => {
-      const normalizedLanguage = normalizeLanguage(nextLanguage);
+  const setLanguage = useCallback((nextLanguage: AppLanguage) => {
+    const normalizedLanguage = normalizeLanguage(nextLanguage);
 
-      persistLanguage(normalizedLanguage);
-      setLanguageState(normalizedLanguage);
+    persistLanguage(normalizedLanguage);
+    setLanguageState(normalizedLanguage);
 
-      if (i18next.language !== normalizedLanguage) {
-        void ensureI18nInitialized().then(() => {
-          return i18next.changeLanguage(normalizedLanguage);
-        });
-      }
-    },
-    [],
-  );
+    if (i18next.language !== normalizedLanguage) {
+      ensureI18nInitialized().then(() => {
+        return i18next.changeLanguage(normalizedLanguage);
+      });
+    }
+  }, []);
 
-  const t = useCallback(
-    (key: string, values?: TranslateValues) => {
-      return i18next.t(key, values);
-    },
-    [],
-  );
+  const t = useCallback((key: string, values?: TranslateValues) => {
+    return i18next.t(key, values);
+  }, []);
 
-  const hasTranslation = useCallback(
-    (key: string) => {
-      return i18next.exists(key);
-    },
-    [],
-  );
+  const hasTranslation = useCallback((key: string) => {
+    return i18next.exists(key);
+  }, []);
 
   return {
     t,
