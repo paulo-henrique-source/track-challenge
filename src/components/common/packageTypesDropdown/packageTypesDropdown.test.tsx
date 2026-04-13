@@ -3,16 +3,18 @@ import userEvent from '@testing-library/user-event'
 
 import { PackageTypesDropdown } from './packageTypesDropdown'
 
+let currentLanguage = 'pt-BR'
+
 jest.mock('@/hooks/useTranslate', () => ({
   useTranslate: () => ({
     t: (key: string, values?: Record<string, string | number>) => {
       if (values?.count != null) {
-        return `${key}:${values.count}`
+        return `${currentLanguage}:${key}:${values.count}`
       }
 
-      return key
+      return `${currentLanguage}:${key}`
     },
-    language: 'pt-BR',
+    language: currentLanguage,
     setLanguage: jest.fn(),
     hasTranslation: jest.fn(),
     supportedLanguages: ['pt-BR', 'en-US'],
@@ -30,13 +32,32 @@ jest.mock('@/components/ui/popover/popover', () => ({
 }))
 
 describe('PackageTypesDropdown', () => {
+  beforeEach(() => {
+    currentLanguage = 'pt-BR'
+  })
+
   it('renders all package types label by default', () => {
     render(
       <PackageTypesDropdown packageTypes={[]} values={[]} onChange={jest.fn()} />,
     )
 
-    expect(screen.getByText('dropdowns.packageTypes.all')).toBeInTheDocument()
-    expect(screen.getByText('dropdowns.packageTypes.empty')).toBeInTheDocument()
+    expect(screen.getByText('pt-BR:dropdowns.packageTypes.all')).toBeInTheDocument()
+    expect(screen.getByText('pt-BR:dropdowns.packageTypes.empty')).toBeInTheDocument()
+  })
+
+  it('updates translated label when language changes', () => {
+    const { rerender } = render(
+      <PackageTypesDropdown packageTypes={[]} values={[]} onChange={jest.fn()} />,
+    )
+
+    expect(screen.getByText('pt-BR:dropdowns.packageTypes.all')).toBeInTheDocument()
+
+    currentLanguage = 'en-US'
+    rerender(
+      <PackageTypesDropdown packageTypes={[]} values={[]} onChange={jest.fn()} />,
+    )
+
+    expect(screen.getByText('en-US:dropdowns.packageTypes.all')).toBeInTheDocument()
   })
 
   it('toggles package type values', async () => {

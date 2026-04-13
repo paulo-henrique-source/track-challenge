@@ -24,14 +24,14 @@ export function VehicleDropdown({
   disabled = false,
   triggerId,
 }: VehicleDropdownProps) {
-  const { t } = useTranslate();
+  const { t, language } = useTranslate();
   const [open, setOpen] = useState(false);
 
   const selectedVehicleLabel = useMemo(() => {
     const selectedVehicle = vehicles.find((vehicle) => vehicle.veiccodigo === value);
 
     return selectedVehicle?.veicnome ?? t("dropdowns.vehicle.placeholder");
-  }, [t, value, vehicles]);
+  }, [language, t, value, vehicles]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

@@ -27,7 +27,7 @@ export function PackageTypesDropdown({
   disabled = false,
   triggerId,
 }: PackageTypesDropdownProps) {
-  const { t } = useTranslate();
+  const { t, language } = useTranslate();
   const [open, setOpen] = useState(false);
 
   const label = useMemo(() => {
@@ -46,7 +46,7 @@ export function PackageTypesDropdown({
     return t("dropdowns.packageTypes.selected", {
       count: selectedLabels.length,
     });
-  }, [packageTypes, t, values]);
+  }, [language, packageTypes, t, values]);
 
   const toggleValue = (code: string) => {
     if (values.includes(code)) {
