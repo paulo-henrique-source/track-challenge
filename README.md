@@ -121,6 +121,27 @@ Implementado.
 - Feedback visual de hover com transicao de borda para `--brand`
 - Animacoes utilitarias com classes Tailwind + `tw-animate-css`
 
+## Performance (Lighthouse)
+
+Para medir corretamente, execute em **producao**:
+
+```bash
+npm run build
+npm run start
+```
+
+Depois rode o Lighthouse em `http://localhost:3000` (mobile e desktop).
+
+Motivo: `npm run dev` inclui overhead de desenvolvimento (HMR, sourcemaps, instrumentacao) e tende a distorcer score, principalmente em Performance.
+
+### Otimizacoes aplicadas
+
+- Mapa carregado com `dynamic import` (`ssr: false`) para reduzir custo no bundle inicial
+- Tabela com paginacao e renderizacao controlada para evitar custo excessivo no main thread
+- Separacao de estado de servidor com React Query para evitar requisicoes desnecessarias
+- Regras de validacao no client antes de chamar API (evita round-trip de erro)
+- Persistencia de sessao com Zustand (`persist`) para evitar login silencioso repetido em refresh quando token segue valido
+
 ### Endpoints internos
 
 - `POST /api/silent-session`
@@ -160,11 +181,11 @@ Aplicacao em desenvolvimento:
 
 ## Scripts
 
-- `npm run dev` - ambiente local
-- `npm run build` - build de producao
-- `npm run start` - executa build
-- `npm run lint` - lint
-- `npm run typecheck` - checagem de tipos
+- `yarn dev` - ambiente local
+- `yarn build` - build de producao
+- `yarn start` - executa build
+- `yarn lint` - lint
+- `yarn typecheck` - checagem de tipos
 
 ## Estrutura de pastas
 
@@ -185,21 +206,27 @@ src/
   utils/
 ```
 
-## O que sera avaliado (resumo)
-
-- Organizacao e estrutura de codigo
-- UX
-- Performance
-- Dominio das stacks utilizadas
-- Tratamento de erros e dados
-
 ## Entrega
 
-- Codigo-fonte (repositorio publico): [preencher-url]
-- Live demo (Vercel ou similar): [preencher-url]
+- Codigo-fonte: [preencher-url]
+- Live demo: [preencher-url]
 
 ## Pergunta do desafio
 
 Em quantas horas voce acredita que conseguiu realizar esse desafio?
 
-- Resposta: [preencher-estimativa-em-horas]
+- Resposta: Aproximadamente 8 horas de implementação efetiva de código.
+
+### Perguntas sobre uso de IA
+
+1. Em quais partes do codigo a IA foi fundamental para acelerar o desenvolvimento?
+
+- Resposta: A IA foi mais útil para acelerar tarefas operacionais e repetitivas: refactors de organização (estrutura de pastas e imports), criação de testes base para componentes/hooks, padronização de i18n e revisão rápida de consistência entre telas. Também ajudou a transformar ideias em implementação mais rápido, especialmente em partes de UI e cobertura de testes. As decisões de arquitetura (fluxo de sessão silenciosa com persistência, separação client/server via rotas internas, estratégia de performance no carregamento do dashboard) eu conduzi manualmente.
+
+2. Houve algum momento em que a IA sugeriu uma abordagem que voce considerou errada ou subotima? Como resolveu?
+
+- Resposta: Sim. Um exemplo claro foi quando esbarrei em problema de hydration: a sugestão inicial da IA foi colocar praticamente toda a page em client-side para eliminar o mismatch. Eu considerei essa abordagem subótima, porque sacrifica SSR e pode piorar performance/arquitetura. Em vez disso, corrigi de forma pontual: estabilizei IDs/estado entre server e client, mantive SSR onde fazia sentido e usei `dynamic import` apenas para partes realmente pesadas e naturalmente client-side (como o mapa). Assim resolvi o problema sem transformar toda a página em client component.
+
+3. Como voce estruturou o prompt para garantir que a IA respeitasse as regras de estilização do Tailwind?
+
+- Resposta: Estruturei os prompts com contexto + restrições explícitas + critério de aceite. Formato: contexto do arquivo/componente e objetivo exato; regras visuais (usar classes Tailwind existentes, manter tokens/variáveis, sem inventar design fora do padrão atual); limites técnicos (não alterar API pública, evitar regressão, manter acessibilidade); checklist final (rodar typecheck/testes e garantir comportamento igual). Esse padrão reduz saída genérica e força a IA a seguir o design system e a implementação já existente.
