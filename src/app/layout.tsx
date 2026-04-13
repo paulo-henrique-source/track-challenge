@@ -20,6 +20,12 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: translateFromDictionary(DEFAULT_LANGUAGE, "meta.title"),
   description: translateFromDictionary(DEFAULT_LANGUAGE, "meta.description"),
+  applicationName: translateFromDictionary(DEFAULT_LANGUAGE, "common.appName"),
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: translateFromDictionary(DEFAULT_LANGUAGE, "common.appName"),
+  },
 };
 
 export const viewport: Viewport = {
@@ -27,16 +33,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   colorScheme: "light dark",
-  themeColor: [
-    {
-      media: "(prefers-color-scheme: light)",
-      color: "#ffffff",
-    },
-    {
-      media: "(prefers-color-scheme: dark)",
-      color: "#1f2438",
-    },
-  ],
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

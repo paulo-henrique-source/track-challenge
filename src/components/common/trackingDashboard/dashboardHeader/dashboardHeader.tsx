@@ -46,8 +46,8 @@ export function DashboardHeader() {
   return (
     <header className='dashboard-topbar animate-in fade-in-0 slide-in-from-top-1 duration-500'>
       <div className='dashboard-header-inner'>
-        <div className='flex items-center gap-2'>
-          <span className='cursor-text text-sm font-medium text-[color:var(--text-subtle)]'>
+        <div className='flex min-w-0 flex-1 items-center gap-1 sm:gap-2'>
+          <span className='hidden cursor-text text-sm font-medium text-[color:var(--text-subtle)] min-[390px]:inline'>
             {t("header.language.label")}
           </span>
           <div className='relative'>
@@ -69,7 +69,7 @@ export function DashboardHeader() {
           </div>
         </div>
 
-        <div className='flex items-center gap-2'>
+        <div className='flex shrink-0 items-center gap-1.5 sm:gap-2'>
           <Button
             type='button'
             variant='ghost'
@@ -84,11 +84,11 @@ export function DashboardHeader() {
             )}
           </Button>
 
-          <div className='text-right'>
-            <p className='cursor-text text-xs font-semibold text-[color:var(--text-strong)]'>
+          <div className='w-[4.8rem] text-right min-[390px]:w-[5.5rem]'>
+            <p className='cursor-text truncate text-[11px] font-semibold whitespace-nowrap text-[color:var(--text-strong)] min-[390px]:text-xs'>
               {t("common.fleetUser")}
             </p>
-            <p className='cursor-text text-[11px] text-[color:var(--text-subtle)]'>
+            <p className='cursor-text truncate text-[10px] whitespace-nowrap text-[color:var(--text-subtle)] min-[390px]:text-[11px]'>
               {t("common.appName")}
             </p>
           </div>

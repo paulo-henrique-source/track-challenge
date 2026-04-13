@@ -22,22 +22,24 @@ function syncBrowserThemeColor(root: HTMLElement) {
     .getComputedStyle(root)
     .getPropertyValue("--surface-card")
     .trim();
+  const resolvedThemeColor = surfaceCardColor || "#ffffff";
 
-  if (surfaceCardColor.length === 0) {
+  const themeColorMetaTags = Array.from(
+    document.querySelectorAll<HTMLMetaElement>(THEME_COLOR_META_SELECTOR),
+  );
+
+  if (themeColorMetaTags.length === 0) {
+    const themeColorMeta = document.createElement("meta");
+    themeColorMeta.name = "theme-color";
+    themeColorMeta.content = resolvedThemeColor;
+    document.head.append(themeColorMeta);
     return;
   }
 
-  let themeColorMeta = document.querySelector<HTMLMetaElement>(
-    THEME_COLOR_META_SELECTOR,
-  );
-
-  if (themeColorMeta === null) {
-    themeColorMeta = document.createElement("meta");
-    themeColorMeta.name = "theme-color";
-    document.head.append(themeColorMeta);
+  for (const themeColorMeta of themeColorMetaTags) {
+    themeColorMeta.removeAttribute("media");
+    themeColorMeta.content = resolvedThemeColor;
   }
-
-  themeColorMeta.content = surfaceCardColor;
 }
 
 function SessionInitializerRunner() {
