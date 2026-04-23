@@ -55,16 +55,19 @@ export function getMappablePoints(
 ): MappableHistoryPoint[] {
   return records
     .map((record) => {
-      const latitude = Number(record.latitude);
-      const longitude = Number(record.longitude);
+      const rawLatitude = Number(record.latitude);
+      const rawLongitude = Number(record.longitude);
 
       const invalidNumber =
-        Number.isFinite(latitude) === false ||
-        Number.isFinite(longitude) === false;
+        Number.isFinite(rawLatitude) === false ||
+        Number.isFinite(rawLongitude) === false;
 
       if (invalidNumber) {
         return null;
       }
+
+      const latitude = -Math.abs(rawLatitude);
+      const longitude = -Math.abs(rawLongitude);
 
       return {
         timestamp: record.data,
